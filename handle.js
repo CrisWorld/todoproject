@@ -54,7 +54,7 @@ timer.startCount = function({currentTime,futureTime,percent,selector,selectorbtn
     const minutes = Math.floor((futureTime - currentTime)/60000);
     const seconds = Math.floor(((futureTime - currentTime) % 60000)/1000);
     btn.innerHTML = "Pause";
-    let progress = document.getElementById("progress-bar");
+    let progress = document.getElementById("navbar-separate1");
     timer.render(minutes, seconds, percent, {time, progress});
     var myTimer = setInterval(() => {
         currentTime+=1000;

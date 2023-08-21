@@ -1,70 +1,132 @@
-html,body{
-    margin: 0;
-    height: 100%;
-    width: 100%;
-    background-color: rgb(186, 73, 73);
+body{
+    background-color: rgba(165, 42, 42, 0.864);
+}
+.main{
+    position: relative;
+}
+.header{
+    color: white;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 700px;
+    margin: 0 auto;
+    justify-content: space-between;
+    margin-top: 10px;
 }
-ul,a{
-    list-style: none;
-    text-decoration: none;
+.header button{
+    color: white;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.216);
+    border-radius: 5px;
+    padding: 5px 10px;
 }
-.progress-bar{
+.navbar-separate1 {
+    width: 700px;
     height: 2px;
-    width: 90%;
+    margin: 0 auto;
     background: rgb(255,255,255);
     background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) 0%);
-    transition: 0.5s !important;
 }
-.options{
-    display: flex;
-    justify-content: center;
-    gap: 30px;
+.navbar-separate2 {
+    width: 480px;
+    border-bottom: 1px solid white;
+    padding-top: 10px;
+    margin: 0 auto;
 }
-.opt-button{
-    background-color: #3f243a44;
-    padding: 10px;
-    border-radius: 10px;
-    cursor: pointer;
-}
-.opt-button:hover{
-    background-color: #3f1d38c2;
-}
-.box{
-    width: 500px;
+
+
+.container{
+    background-color: rgba(255, 255, 255, 0.104);
+    width: 480px;
     height: 360px;
-    padding: 30px;
-    background-color: rgb(186, 86, 86);
-    border-radius: 20px;
+    margin-top: 50px;
+    border-radius: 5px;
+    text-align: center;
+}
+.navbar{
+    margin: 0 70px;
+    padding-top: 20px;
+}
+.nav-item{
+    border: none;
     color: white;
-    box-shadow: rgb(120, 55, 55) 0px 7px 29px 0px;
-}
-.time-cover,.start-cover,.progress-cover{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.time-cover,.start-cover{
-    margin: 40px 0 40px 0;
+    background-color: rgba(255, 255, 255, 0);
 }
 .time{
-    font-size: 100px;
+    color: white;
+    font-size: 120px;
     font-weight: 700;
 }
-.start-cover button{
-    width: 150px;
-    height: 70px;
-    outline: none;
+.btn-start{
     border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    color: rgb(186, 73, 73);
     font-size: 20px;
     font-weight: 700;
-    text-transform: uppercase;
+    padding: 15px 60px;
+    border-radius: 5px;
+    color:rgba(165, 42, 42, 0.864);
 }
-.start-cover button:hover{
-    background-color: #d3d3d3cd;
+
+
+.footer{
+    text-align: center;
+    color: white;
+    width: 480px;
+    margin: 0 auto;
+}
+.footer-task{
+    display: flex;
+    justify-content: space-between;
+}
+.task{
+    text-align: center;
+    margin-top: 10px;
+    
+}
+.btn-add-task{
+    background-color: rgba(165, 42, 42, 0.46);
+    border: 3px dashed rgba(255, 255, 255, 0.436);
+    color: rgba(255, 255, 255, 0.436);
+    width: 480px;
+    height: 60px;
+    border-radius: 10px;
+}
+
+.form-setting{
+    background-color: white;
+    width: 400px;
+    height: 500px;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    margin: 50px 150px;
+    border-radius: 10px;
+    /* display: none; */
+}
+.form-head{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+}
+.form-head, .form-head button{
+    font-size: 18px;
+}
+.form-separate{
+    border-bottom: 1px solid #33333321;
+}
+.form-time{
+    font-weight: 700;
+    margin: 10px;
+}
+.color1{
+    color: #3333335c;
+}
+.color2{
+    color: #333333ae;
+}
+.input-set-time{
+    width: 100px;
+    margin-top: 5px;
+    border: none;
+    background-color:#3333331c;
+    height: 30px;
+    padding-left: 10px;
 }
