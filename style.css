@@ -1,0 +1,70 @@
+html,body{
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(186, 73, 73);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+ul,a{
+    list-style: none;
+    text-decoration: none;
+}
+.progress-bar{
+    height: 2px;
+    width: 90%;
+    background: rgb(255,255,255);
+    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) 0%);
+    transition: 0.5s !important;
+}
+.options{
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+.opt-button{
+    background-color: #3f243a44;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.opt-button:hover{
+    background-color: #3f1d38c2;
+}
+.box{
+    width: 500px;
+    height: 360px;
+    padding: 30px;
+    background-color: rgb(186, 86, 86);
+    border-radius: 20px;
+    color: white;
+    box-shadow: rgb(120, 55, 55) 0px 7px 29px 0px;
+}
+.time-cover,.start-cover,.progress-cover{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.time-cover,.start-cover{
+    margin: 40px 0 40px 0;
+}
+.time{
+    font-size: 100px;
+    font-weight: 700;
+}
+.start-cover button{
+    width: 150px;
+    height: 70px;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    color: rgb(186, 73, 73);
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.start-cover button:hover{
+    background-color: #d3d3d3cd;
+}
