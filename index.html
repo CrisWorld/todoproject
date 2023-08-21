@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="box">
+        <div class="progress-cover">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <ul class="options">
+            <li class="opt-button">Pomodoro</li>
+            <li class="opt-button">Short Break</li>
+            <li class="opt-button">Long Break</li>
+        </ul>
+        <div class="time-cover">
+            <span class="time" id="time">00:10</span>
+        </div>
+        <div class="start-cover">
+            <button id="start-btn">Start</button>
+        </div>
+    </div>
+    <script src="handle.js"></script>
+    <script>
+        document.getElementById("start-btn").onclick = timer.startCount.bind(this,{currentTime: 0,futureTime: 60000,percent: 0,selector: "time", selectorbtn: "start-btn"});
+    </script>
+</body>
+</html>
