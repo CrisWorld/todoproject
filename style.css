@@ -1,5 +1,6 @@
 body{
     background-color: rgba(165, 42, 42, 0.864);
+    transition: 0.6s ease-in-out;
 }
 .main{
     position: relative;
@@ -22,7 +23,7 @@ body{
 .navbar-separate1 {
     width: 700px;
     height: 2px;
-    margin: 0 auto;
+    margin: 40px auto;
     background: rgb(255,255,255);
     background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) 0%);
 }
@@ -49,7 +50,7 @@ body{
 .nav-item{
     border: none;
     color: white;
-    background-color: rgba(255, 255, 255, 0);
+    background-color: rgba(255, 255, 255, 0.104);
 }
 .time{
     color: white;
@@ -82,7 +83,7 @@ body{
     
 }
 .btn-add-task{
-    background-color: rgba(165, 42, 42, 0.46);
+    background-color: rgba(255, 255, 255, 0.3);
     border: 3px dashed rgba(255, 255, 255, 0.436);
     color: rgba(255, 255, 255, 0.436);
     width: 480px;
@@ -93,13 +94,14 @@ body{
 .form-setting{
     background-color: white;
     width: 400px;
-    height: 500px;
+    height: fit-content;
     position: absolute;
+    padding: 20px;
     z-index: 1;
     top: 0;
     margin: 50px 150px;
     border-radius: 10px;
-    /* display: none; */
+    display: none;
 }
 .form-head{
     display: flex;
@@ -112,7 +114,7 @@ body{
 .form-separate{
     border-bottom: 1px solid #33333321;
 }
-.form-time{
+.form-time,.tasks,.theme{
     font-weight: 700;
     margin: 10px;
 }
@@ -129,4 +131,68 @@ body{
     background-color:#3333331c;
     height: 30px;
     padding-left: 10px;
+}
+.checkbox{
+    visibility: hidden;
+    position: relative;
+    transform: translateX(-50px);
+}
+.checkbox::before{
+    content: "";
+    position: absolute;
+    visibility: visible;
+    height: 20px;
+    width: 50px;
+    border-radius: 20px;
+    background-color: whitesmoke;
+    border: 1px solid black;
+    z-index: 0;
+    left: 0;
+}
+.checkbox::after{
+    content: "";
+    position: absolute;
+    visibility: visible;
+    z-index: 1;
+    height: 19px;
+    width: 19px;
+    border: 1px solid black;
+    border-radius: 50%;
+    background-color: white;
+    left: 0;
+    transition: .4s;
+}
+.checkbox:checked::after{
+    transform: translateX(calc(50px - 98%));
+}
+.checkbox:checked::before{
+    background-color: #A8DF8E;
+}
+.box{
+    background-color: black;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.icon{
+    color: #3333335c;
+}
+.savebtn{
+    width: 100px;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid #3333335c;
+}
+.nav-item{
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    font-weight: 500;
+    padding: 5px;
+}
+.nav-item:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+}
+.nav-item.active{
+    background-color: rgba(255, 255, 255, 0.3);
 }

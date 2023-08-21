@@ -15,55 +15,82 @@
             <h5><i class="fa-solid fa-circle-check"></i> Pomofocus</h5>
             <div class="button">
                 <button><i class="fa-solid fa-chart-simple"></i> Report</button>
-                <button><i class="fa-solid fa-gear"></i> Setting</button>
+                <button onclick="openSetting()"><i class="fa-solid fa-gear"></i> Setting</button>
                 <button><i class="fa-solid fa-circle-user"></i> Login</button>
             </div>
 
-            <form action="" class="form-setting" style="display: none">
+            <form action="" class="form-setting" id="form-setting">
                 <div class="form-head color2">
                     <b>Setting</b>
-                    <button><i class="fa-solid fa-xmark color2"></i></button>
+                    <div onclick="closeSetting()"><i class="fa-solid fa-xmark color2"></i></div>
                 </div>
                 <div class="form-separate"></div>
                 <div class="form-time">
-                    <i class="fa-solid fa-clock color1"></i>
+                    <i class="fa-solid fa-clock color1 icon"></i>
                     <span class="color1">TIMER</span>
                     <p class="color2 mb-1 mt-3">Time (minutes)</p>
                     <div class="d-flex justify-content-between">
                         <div>
                             <p class="color1 m-0">Pomodoro</p>
-                            <input type="number" value="25" class="input-set-time color2">
+                            <input type="number" value="0.1" id="pomodoro-value" class="input-set-time color2">
                         </div>
                         <div>
                             <p class="color1 m-0">Short Break</p>
-                            <input type="number" value="5" class="input-set-time color2">
+                            <input type="number" value="0.2" id="shortbreak-value" class="input-set-time color2">
                         </div>
                         <div>
                             <p class="color1 m-0">Long Break</p>
-                            <input type="number" value="15" class="input-set-time color2">
+                            <input type="number" value="0.3" id="longbreak-value" class="input-set-time color2">
                         </div>
                     </div>
                     <div class="d-flex justify-content-between mt-4">
                         <span class="color2">Auto Start Breaks</span>
-                        <input type="checkbox">
+                        <input type="checkbox" id="autostartbreak" class="checkbox">
                     </div>
                     <div class="d-flex justify-content-between mt-4">
-                        <span class="color2">Auto Start Pomodoros</span>
-                        <input type="checkbox">
+                        <span class="color2" >Auto Start Pomodoro</span>
+                        <input type="checkbox" id="autostartpomodoro" class="checkbox">
                     </div>
                     <div class="d-flex justify-content-between mt-4">
                         <span class="color2">Long Break interval</span>
-                        <input type="number" value="5" class="input-set-time color2">
+                        <input type="number" id="longbreakinterval" value="1" class="input-set-time color2">
                     </div>
                 </div>
+                <div class="form-separate"></div>
+                <div class="tasks">
+                    <i class="fa-solid fa-list-check icon"></i>
+                    <span class="color1">TASKS</span>
+                    <div class="d-flex justify-content-between mt-4">
+                        <span class="color2" >Auto Check Tasks</span>
+                        <input type="checkbox" id="autochecktask" class="checkbox">
+                    </div>
+                </div>
+                <div class="form-separate"></div>
+                <div class="theme">
+                    <i class="fa-solid fa-palette icon"></i>
+                    <span class="color1">THEME</span>
+                    <div class="d-flex justify-content-between mt-4">
+                        <span class="color2" >Color Themes</span>
+                        <div class="d-flex gap-1">
+                            <div id="pomodoro-color" class="box"></div>
+                            <div id="shortbreak-color" class="box"></div>
+                            <div id="longbreak-color" class="box"></div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between mt-4">
+                        <span class="color2" >Small Window</span>
+                        <button style="background-color: #333333ae;" id="opensmallwindow">Open</button>
+                    </div>
+                </div>
+                <div style="float: right; padding: 20px;"><input type="submit" value="Save" class="savebtn"></div>
             </form>
         </div>
         <div class="navbar-separate1" id="navbar-separate1"></div>
         <div class="container">
             <nav class="navbar">
-                <button class="nav-item" style="background-color:rgba(165, 42, 42, 0.326); border-radius: 5px; font-weight: 500; padding: 5px;">Pomodoro</button>
-                <button class="nav-item">Short Break</button>
-                <button class="nav-item">Long Break</button>
+                <button id="1" class="nav-item active" mode="1">Pomodoro</button>
+                <button id="2" class="nav-item" mode="2">Short Break</button>
+                <button id="3" class="nav-item" mode="3">Long Break</button>
             </nav>
             <div class="time" id="time">
                 25:00
@@ -72,7 +99,7 @@
         </div>
         <div class="footer">
             <p>#1</p>
-            <b>Time to focus!</b>
+            <b id="title">Time to focus!</b>
             <div class="footer-task">
                 <h4>Tasks</h4>
                 <i class="fa-solid fa-ellipsis-vertical"></i>
@@ -83,9 +110,7 @@
             <button class="btn-add-task"><b><i class="fa-solid fa-circle-plus"></i> Add Task</b></button>
         </div>
     </div>
-    <script src="handle.js"></script>
-    <script>
-         document.getElementById("btn-start").onclick = timer.startCount.bind(this,{currentTime: 0,futureTime: 120000, percent: 0,selector: "time", selectorbtn: "btn-start"});
-    </script>
+    <script type="module" src="config.js"></script>
+    <script src="eventDom.js"></script>
 </body>
 </html>
