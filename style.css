@@ -1,5 +1,11 @@
+:root{
+    --color: rgba(165, 42, 42, 0.864);
+    --pomodoro: white;
+    --shortbreak: white;
+    --longbreak: white;
+}
 body{
-    background-color: rgba(165, 42, 42, 0.864);
+    background-color: var(--color);
     transition: 0.6s ease-in-out;
 }
 .main{
@@ -63,7 +69,7 @@ body{
     font-weight: 700;
     padding: 15px 60px;
     border-radius: 5px;
-    color:rgba(165, 42, 42, 0.864);
+    color: var(--color);
 }
 
 
@@ -169,11 +175,19 @@ body{
     background-color: #A8DF8E;
 }
 .box{
-    background-color: black;
     width: 40px;
     height: 40px;
     border-radius: 10px;
     cursor: pointer;
+}
+#pomodoro-color{
+    background-color: var(--pomodoro);
+} 
+#shortbreak-color{
+    background-color: var(--shortbreak);
+}
+#longbreak-color{
+    background-color: var(--longbreak);
 }
 .icon{
     color: #3333335c;
@@ -195,4 +209,29 @@ body{
 }
 .nav-item.active{
     background-color: rgba(255, 255, 255, 0.3);
+}
+.color-options{
+    display: none;
+    position: absolute;
+    right: 0;
+    transform: translate(110%, -100%);
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: fit-content;
+    background-color: whitesmoke;
+    border-radius: 30px;
+    gap: 20px;
+    padding: 20px;
+}
+.option{
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: black;
+    cursor: pointer;
+}
+.option:hover,.box:hover{
+    opacity: 0.4;
 }

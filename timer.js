@@ -1,3 +1,4 @@
+var root = document.querySelector(":root");
 function timer(){
 
 }
@@ -15,7 +16,7 @@ timer.button = undefined;
 timer.time = undefined;
 timer.progress = undefined;
 timer.count = -1;
-
+timer.myTimer = undefined;
 // Method bắt đầu countdown
 timer.startCount = function({currentTime,futureTime,percent}){
     const btn = timer.button;
@@ -48,6 +49,7 @@ timer.startCount = function({currentTime,futureTime,percent}){
             btn.onclick = timer.pauseCount.bind(btn, {currentTime, futureTime, percent},myTimer);
         }
     },1000);
+    timer.myTimer = myTimer;
     btn.onclick = timer.pauseCount.bind(btn, {currentTime, futureTime, percent}, myTimer);
 }
 // Method dùng để dừng countdown lại
@@ -83,16 +85,18 @@ function switchPage(e, isFirstTime){
     let title = document.getElementById('title');
     let mode = parseInt(e.getAttribute('mode'));
     addActive(e);
+    clearInterval(timer.myTimer);
+    timer.button.innerHTML = "START";
     timer.switchMode(mode, isFirstTime);
-    if (mode === 1) title.innerHTML = "Time to focus!"; else title.innerHTML = "Time for a break";
-    document.body.style = `background: ${timer.backgrounds[mode-1]}`;
+    if (mode === 1) title.innerHTML = "Time to focus!"; 
+    else title.innerHTML = "Time for a break";
+    root.style.setProperty("--color",timer.backgrounds[mode-1]);
 }
 // Lấy tất cả element có class là .nav-item (3 cái button Poromodo, short break, long break)
 // và lắng nghe click của từng button nếu click vào thì ta chuyển chế độ
 // vì người dùng nhấn vào nên nó không thể tự đổi start countdown được nên ta cho tham số
 // thứ 2 của switchPage là true
 var list = document.querySelectorAll('.nav-item');
-console.log(list);
 list.forEach((item) =>{
     item.addEventListener('click', (e) => switchPage(e.target, true));
 });
