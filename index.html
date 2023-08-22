@@ -16,7 +16,7 @@
             <div class="button">
                 <button><i class="fa-solid fa-chart-simple"></i> Report</button>
                 <button onclick="openSetting()"><i class="fa-solid fa-gear"></i> Setting</button>
-                <button><i class="fa-solid fa-circle-user"></i> Login</button>
+                <button onclick="openLogin()"><i class="fa-solid fa-circle-user"></i> Login</button>
             </div>
 
             <form action="" class="form-setting" id="form-setting">
@@ -86,6 +86,47 @@
                 </div>
                 <div style="float: right; padding: 20px;"><input type="submit" value="Save" class="savebtn"></div>
             </form>
+
+            <form action="#" class="form-login" id="form-login">
+                <div class="d-flex justify-content-end">
+                    <h2 class="mt-2 me-5 pe-4">LOGIN</h2>
+                    <div onclick="closeLogin()" class="ms-5"><i class="fa-solid fa-xmark color2"></i></div>
+                </div>
+                <button><i class="fa-brands fa-google"></i> Login with Google</button><br>
+                <div class="d-flex justify-content-between">
+                    <div class="separate"></div>
+                    <span class="color1">OR</span>
+                    <div class="separate"></div>
+                </div>
+                <label class="color2 mt-3">Email: </label><br>
+                <input type="text" placeholder="example@gmail.com">
+                <label class="color2 mt-3">Password: </label><br>
+                <input type="password">
+                <button stype="submit" class="submit">Login with email</button>
+                <a href="#" class="color2 d-flex justify-content-center mb-3">Forgot password</a>
+                <span class="color2 mx-4 ">Do not have an account ? </span><span class="color3 " onclick="openSignup()">Create account</span>
+            </form>
+
+            <form action="#" class="form-signup" id="form-signup">
+                <div class="d-flex justify-content-end">
+                    <h2 class="mt-2">CREATE  ACCOUNT</h2>
+                    <div onclick="closeSignup()" class="ms-4"><i class="fa-solid fa-xmark color2"></i></div>
+                </div>
+                <button><i class="fa-brands fa-google"></i> Signup with Google</button><br>
+                <div class="d-flex justify-content-between">
+                    <div class="separate"></div>
+                    <span class="color1">OR</span>
+                    <div class="separate"></div>
+                </div>
+                <label class="color2 mt-2">Name: </label><br>
+                <input type="text" placeholder="example@gmail.com">
+                <label class="color2 mt-2">Email: </label><br>
+                <input type="text" placeholder="example@gmail.com">
+                <label class="color2 mt-2">Password: </label><br>
+                <input type="password">
+                <button stype="submit" class="submit">Signup with email</button>
+                <span class="color2 mx-4">Already have an account ? </span><span class="color3" onclick="openLogin()">Log in</span>
+            </form>
         </div>
         <div class="navbar-separate1" id="navbar-separate1"></div>
         <div class="container">
@@ -109,8 +150,20 @@
             <div class="navbar-separate2"></div>
         </div>
         <div class="task">
-            <button class="btn-add-task"><b><i class="fa-solid fa-circle-plus"></i> Add Task</b></button>
+            <button class="btn-add-task" onclick="openAddTask()" id="btn-addTask"><b><i class="fa-solid fa-circle-plus"></i> Add Task</b></button>
         </div>
+        <form action="task.php" class="form-addTask" id="form-addTask" method="post">
+            <div class="px-3">
+                <input type="text" class="title mb-5" id="title" placeholder="What are you working on?"></input>
+                <b>Est Pomodoros</b><br>
+                <input type="number" class="est mb-3" id="est"><br>
+                <span> <input type="text" id="note" class="note mb-2" placeholder="Some note"> </span> <span> + Add Project <i class="fa-solid fa-lock"></i> </span>
+            </div>
+            <div class="btn-Form-addTask mt-4">
+                <button class="btn btn-light" onclick="closeAddTask()">Cancel</button>
+                <button class="btn btn-dark me-3">Save</button>
+            </div>
+        </form>
     </div>
     <script type="module" src="config.js"></script>
     <script src="eventDom.js"></script>
