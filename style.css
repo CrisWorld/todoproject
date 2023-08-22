@@ -196,3 +196,92 @@ body{
 .nav-item.active{
     background-color: rgba(255, 255, 255, 0.3);
 }
+
+
+/* form signin signup */
+.form-login, .form-signup{
+    background-color: white;
+    width: 400px;
+    height: 550px;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    margin: 50px 150px;
+    border-radius: 10px;
+    padding: 10px;
+    display: none;
+}
+.form-login h2, .form-signup h2{
+    color:rgba(165, 42, 42, 0.864);
+    font-weight: 800;
+}
+.form-login button, .form-signup button{
+    box-shadow: 0px 0px 5px 0px #333;
+    color: #333333cc;
+    width: 100%;
+    height: 45px;
+    margin: 15px 0;
+}
+.separate{
+    border-bottom: 1px solid #3333335e;
+    width: 170px;
+    margin-bottom: 10px;
+}
+.form-login input, .form-signup input{
+    border: none;
+    width: 100%;
+    background-color: #3333331c;
+    height: 45px;
+    padding-left: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.submit{
+    background-color: rgba(165, 42, 42, 0.762) !important;
+    color: white !important;
+}
+.submit:hover{
+    background-color: rgba(165, 42, 42, 0.975) !important;
+}
+.color3{
+    color: rgba(165, 42, 42, 0.975);
+    font-weight: 700;
+    text-decoration: underline;
+    cursor: pointer;
+}
+/* end */
+
+
+/* form add task */
+.form-addTask{
+    background-color: white;
+    width: 480px;
+    height: 280px;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    display: none;
+}
+.title{
+    font-style: italic;
+    width: 100%;
+    border: none;
+    font-size: 25px;
+    font-weight: 500;
+    margin: 10px 0;
+}
+.btn-Form-addTask{
+    background-color:gainsboro;
+    padding: 20px 0;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    text-align: end;
+}
+.note{
+    width: 100%;
+    background-color: gainsboro;
+    border: none;
+    border-radius: 5px;
+    height: 50px;
+}
