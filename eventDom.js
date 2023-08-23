@@ -40,9 +40,33 @@ function openSignup(){
 }
 function openAddTask(){
     btnAddTask.style = "display: none";
-    task.style = "display: inline-block; margin: 20px 520px";
+    task.style = "display: block; margin: 20px auto";
 }
 function closeAddTask(){
     task.style = "display: none";
     btnAddTask.style = "display: inline-block";
 }
+console.log(document.getElementById('autostartbreak').value);
+var formSetting = document.getElementById("form-setting");
+formSetting.onsubmit = (e) => {
+    e.preventDefault();
+    const rootStyle = window.getComputedStyle(document.documentElement);
+    const pomodoroColor = rootStyle.getPropertyValue("--pomodoro").substring(1);
+    const shortBreakColor = rootStyle.getPropertyValue("--shortbreak").substring(1);
+    const longBreakColor = rootStyle.getPropertyValue("--longbreak").substring(1);
+    document.getElementById('pomodoroColor').value=pomodoroColor;
+    document.getElementById('shortBreakColor').value=shortBreakColor;
+    document.getElementById('longBreakColor').value=longBreakColor;
+    formSetting.submit();
+}
+// Xử lý Event click vào checkbox
+var listCheckbox = document.querySelectorAll(".checkbox");
+listCheckbox.forEach((e) => {
+    e.addEventListener("click",() => {
+        if (e.value == 1) {
+            e.value = 0;
+        } else {
+            e.value = 1;
+        }
+    })
+});
