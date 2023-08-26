@@ -46,7 +46,6 @@ function closeAddTask(){
     task.style = "display: none";
     btnAddTask.style = "display: inline-block";
 }
-console.log(document.getElementById('autostartbreak').value);
 var formSetting = document.getElementById("form-setting");
 formSetting.onsubmit = (e) => {
     e.preventDefault();
@@ -57,7 +56,7 @@ formSetting.onsubmit = (e) => {
     document.getElementById('pomodoroColor').value=pomodoroColor;
     document.getElementById('shortBreakColor').value=shortBreakColor;
     document.getElementById('longBreakColor').value=longBreakColor;
-    formSetting.submit();
+    formSetting.submit();   
 }
 // Xử lý Event click vào checkbox
 var listCheckbox = document.querySelectorAll(".checkbox");

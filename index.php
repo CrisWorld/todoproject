@@ -22,7 +22,7 @@
 <body>
     <div class="main">
         <div class="header">
-            <h5><i class="fa-solid fa-circle-check"></i> Pomofocus</h5>
+            <h5><img src="image/tomato.png" alt="" style="width: 30px; aspect-ratio: 1 / 1; color: white;"> Tomató</h5>
             <div class="button">
                 <button><i class="fa-solid fa-chart-simple"></i> Report</button>
                 <button onclick="openSetting()"><i class="fa-solid fa-gear"></i> Setting</button>
@@ -44,7 +44,7 @@
                     <p class="color2 mb-1 mt-3">Time (minutes)</p>
                     <div class="d-flex justify-content-between">
                         <div>
-                            <p class="color1 m-0">Pomodoro</p>
+                            <p class="color1 m-0">Pomodoro</p> 
                             <input type="number" value="<?php echo $data["pomodoro"] ?>" id="pomodoro-value" name="pomodoro-value" class="input-set-time color2">
                         </div>
                         <div>
@@ -166,6 +166,7 @@
                 25:00
             </div>
             <button class="btn-start" id="btn-start">START</button>
+            <div id="btn-skip"><i class="fa-solid fa-forward"></i></div>
         </div>
         <div class="footer">
             <p>#1</p>

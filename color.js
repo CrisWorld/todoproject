@@ -16,7 +16,7 @@ color.stateBtn.forEach( (btn) => {
         setTimeout(() => window.addEventListener("click",listenClick),100)
     };
 });
-color.options = ["#435334","#313866", "#C8AE7D","#E8FFCE","#A1CCD1","#FFD0D0","#F24C3D","#080202"];
+color.options = ["#435334","#313866", "#C8AE7D","#183D3D","#A1CCD1","#352F44","#F24C3D","#080202"];
 color.container = document.getElementById("color-options");
 function listenClick(e) {
     console.log(e.target);

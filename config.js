@@ -6,26 +6,29 @@ var rootStyle = window.getComputedStyle(document.documentElement);
 timer.button = timer.setBtn("btn-start");
 timer.time = timer.setTime('time');
 timer.progress = timer.setProgress('navbar-separate1');
+timer.count = 0;
+timer.skipBtn = document.getElementById('btn-skip');
 // cấu hình setting
 timer.setting = {
     pomodoro: document.getElementById("pomodoro-value").value,
     shortbreak: document.getElementById("shortbreak-value").value,
     longbreak: document.getElementById("longbreak-value").value,
     longBreakInterval: document.getElementById("longbreakinterval").value,
-    autoStartBreak: document.getElementById("autostartbreak").checked,
-    autoStartPomodoro: document.getElementById("autostartpomodoro").checked,
-    autoCheckTasks: document.getElementById("autochecktask").checked,
+    autoStartBreak: document.getElementById("autostartbreak").value,
+    autoStartPomodoro: document.getElementById("autostartpomodoro").value,
+    autoCheckTasks: document.getElementById("autochecktask").value,
     pomodoroColor: rootStyle.getPropertyValue('--pomodoro'),
     shortBreakColor: rootStyle.getPropertyValue('--shortbreak'),
     longBreakColor: rootStyle.getPropertyValue('--longbreak'),
-    currentMode: 1,
+    currentMode: 1
 }
 // Cấu hình những background (theme) color.
 timer.backgrounds = [timer.setting.pomodoroColor,timer.setting.shortBreakColor, timer.setting.longBreakColor];
-// Chế độ mặc định là pomodoro
-timer.switchMode(1,true);
+// Chế độ mặc định là pomodoro  
+timer.switchPage(document.getElementById('1'),true);
 
-
+// config skip btn
+document.getElementById('btn-skip').onclick = timer.skipTime;
 
 // Config Color
 

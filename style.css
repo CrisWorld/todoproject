@@ -25,12 +25,12 @@ body{
     padding: 5px 10px;
 }
 .navbar-separate1 {
-    box-shadow: rgba(255, 255, 255) 0px 7px 29px 0px;;
+    box-shadow: inset 0px 0px 2px 0px rgba(255, 255, 255);
     width: 700px;
     height: 2px;
     margin: 40px auto;
     background: rgb(255,255,255);
-    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) 0%);
+    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgb(27, 24, 24) 0%);
 }
 .navbar-separate2 {
     width: 480px;
@@ -43,10 +43,11 @@ body{
 .container{
     background-color: rgba(255, 255, 255, 0.104);
     width: 480px;
-    height: 360px;
+    height: 400px;
     margin-top: 50px;
     border-radius: 5px;
     text-align: center;
+    position: relative;
 }
 .navbar{
     margin: 0 70px;
@@ -326,4 +327,17 @@ body{
     border: none;
     border-radius: 5px;
     height: 50px;
+}
+#btn-skip{
+    display: none;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    font-size: 30px;
+    padding: 15px;
+    cursor: pointer;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(-50%);
 }
