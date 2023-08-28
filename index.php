@@ -1,5 +1,34 @@
 <?php 
     include('./getData.php');
+    session_start();
+    $id;
+    if (isset($_COOKIE['account'])){
+        global $id;
+        global $data;
+        $id = openssl_decrypt($_COOKIE['account'],"AES-128-CTR","account");
+        getData($id);
+        $_SESSION['id'] = $id;
+    } else {
+        global $data;
+        if (isset($_SESSION['setting'])){
+            $data = $_SESSION['setting'];
+        } else {
+            $data = array(
+                "id" => 3,
+                "pomodoro" => 25,
+                "shortbreak" => 5,
+                "longbreak" => 10,
+                "autoStartPomodoro" => 0,
+                "autoStartBreak" => 0,
+                "autoCheckTask" => 0,
+                "longBreakInterval" => 2,
+                "pomodoroColor" => '#313866',
+                "shortBreakColor" => '#435334',
+                "longBreakColor" => '#C8AE7D',
+            );
+            $_SESSION['setting'] = $data;
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en" style="<?php 
@@ -26,10 +55,15 @@
             <div class="button">
                 <button><i class="fa-solid fa-chart-simple"></i> Report</button>
                 <button onclick="openSetting()"><i class="fa-solid fa-gear"></i> Setting</button>
-                <button onclick="openLogin()"><i class="fa-solid fa-circle-user"></i> Login</button>
+                <?php if (isset($_SESSION['id'])){
+                    echo '<button onclick="movePage()"><i class="fa-solid fa-circle-user"></i> Logout</button>';
+                } else echo '<button onclick="openLogin()"><i class="fa-solid fa-circle-user"></i> Login</button>' ?>
             </div>
 
-            <form action="update.php" class="form-setting" id="form-setting" method="POST">
+            <form action="<?php
+                 if(isset($_COOKIE['account'])) echo "update.php";
+                    else echo "updateSession.php";
+                 ?>" class="form-setting" id="form-setting" method="POST">
                 <input type="hidden" name="pomodoroColor" id="pomodoroColor">
                 <input type="hidden" name="shortBreakColor" id="shortBreakColor">
                 <input type="hidden" name="longBreakColor" id="longBreakColor">
@@ -113,7 +147,7 @@
                     <input type="submit" value="save" class="savebtn" form="form-setting">
                 </div>
             </form>
-            <form action="#" class="form-login" id="form-login">
+            <form action="login.php" class="form-login" id="form-login" method="POST">
                 <div class="d-flex justify-content-center">
                     <h2 style="color: var(--color);">LOGIN</h2>
                     <div onclick="closeLogin()" class="closeBtn"><i class="fa-solid fa-xmark color2"></i></div>
@@ -125,10 +159,10 @@
                     <div class="separate"></div>
                 </div>
                 <label class="color2 mt-3">Email: </label><br>
-                <input type="text" placeholder="example@gmail.com" class="email" >
+                <input type="text" placeholder="example@gmail.com" class="email" name="email">
                 <span class="description"></span><br>
                 <label class="color2 mt-3">Password: </label><br>
-                <input type="password" class="password">
+                <input type="password" class="password" name="password">
                 <span class="description"></span><br>
                 <button stype="submit" class="submit">Login with email</button>
                 <a href="#" class="color2 d-flex justify-content-center mb-3">Forgot password</a>
@@ -203,6 +237,7 @@
         </form>
     </div>
     <script type="module" src="config.js"></script>
+    <script src="./move.js"></script>
     <script src="./eventDom.js"></script>
     <script src="./validator.js"></script>
     <script>
