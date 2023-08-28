@@ -113,11 +113,10 @@
                     <input type="submit" value="save" class="savebtn" form="form-setting">
                 </div>
             </form>
-
             <form action="#" class="form-login" id="form-login">
-                <div class="d-flex justify-content-end">
-                    <h2 class="mt-2 me-5 pe-4" style="color: var(--color);">LOGIN</h2>
-                    <div onclick="closeLogin()" class="ms-5"><i class="fa-solid fa-xmark color2"></i></div>
+                <div class="d-flex justify-content-center">
+                    <h2 style="color: var(--color);">LOGIN</h2>
+                    <div onclick="closeLogin()" class="closeBtn"><i class="fa-solid fa-xmark color2"></i></div>
                 </div>
                 <button><i class="fa-brands fa-google"></i> Login with Google</button><br>
                 <div class="d-flex justify-content-between">
@@ -126,18 +125,22 @@
                     <div class="separate"></div>
                 </div>
                 <label class="color2 mt-3">Email: </label><br>
-                <input type="text" placeholder="example@gmail.com">
+                <input type="text" placeholder="example@gmail.com" class="email" >
+                <span class="description"></span><br>
                 <label class="color2 mt-3">Password: </label><br>
-                <input type="password">
+                <input type="password" class="password">
+                <span class="description"></span><br>
                 <button stype="submit" class="submit">Login with email</button>
                 <a href="#" class="color2 d-flex justify-content-center mb-3">Forgot password</a>
-                <span class="color2 mx-4 ">Do not have an account ? </span><span class="color3 " onclick="openSignup()">Create account</span>
+                <span class="color2" style="width: 100% !important; display: flex; justify-content: space-around;">
+                    Do not have an account ? 
+                    <span class="color3 " onclick="openSignup()">Create account</span>
+                </span>
             </form>
-
             <form action="#" class="form-signup" id="form-signup">
-                <div class="d-flex justify-content-end">
-                    <h2 class="mt-2">CREATE  ACCOUNT</h2>
-                    <div onclick="closeSignup()" class="ms-4"><i class="fa-solid fa-xmark color2"></i></div>
+                <div class="d-flex justify-content-center">
+                    <h2>CREATE  ACCOUNT</h2>
+                    <div onclick="closeSignup()" class="closeBtn"><i class="fa-solid fa-xmark color2"></i></div>
                 </div>
                 <button><i class="fa-brands fa-google"></i> Signup with Google</button><br>
                 <div class="d-flex justify-content-between">
@@ -146,11 +149,17 @@
                     <div class="separate"></div>
                 </div>
                 <label class="color2 mt-2">Name: </label><br>
-                <input type="text" placeholder="example@gmail.com">
+                <input type="text" placeholder="Nguyen Van A" id="fullname">
+                <span class="description"></span><br>
                 <label class="color2 mt-2">Email: </label><br>
-                <input type="text" placeholder="example@gmail.com">
+                <input type="text" placeholder="example@gmail.com" id="email">
+                <span class="description"></span><br>
                 <label class="color2 mt-2">Password: </label><br>
-                <input type="password">
+                <input type="password" id="password">
+                <span class="description"></span><br>
+                <label class="color2 mt-2">Confirm: </label><br>
+                <input type="password" id="confirm-password">
+                <span class="description"></span><br>
                 <button stype="submit" class="submit">Signup with email</button>
                 <span class="color2 mx-4">Already have an account ? </span><span class="color3" onclick="openLogin()">Log in</span>
             </form>
@@ -194,7 +203,16 @@
         </form>
     </div>
     <script type="module" src="config.js"></script>
-    <script src="eventDom.js"></script>
+    <script src="./eventDom.js"></script>
+    <script src="./validator.js"></script>
+    <script>
+        validator.checkEmail('.email',"Không phải là Email !");
+        validator.checkLength('.password',8,"Mật khẩu cần tối thiểu 8 ký tự !");
+        validator.checkLength('#fullname',10, "Cần tối thiểu 10 ký tự !");
+        validator.checkEmail('#email', "Không phải là Email !");
+        validator.checkLength('#password',8, "Mật khẩu cần tối thiểu 8 ký tự !");
+        validator.isSame('#password', '#confirm-password', "Mật khẩu xác nhận không hợp lệ");
+    </script>
 </body>
 </html>
 <?php 
