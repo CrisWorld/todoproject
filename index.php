@@ -1,5 +1,6 @@
 <?php 
     include('./getData.php');
+    session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en" style="<?php 
@@ -113,7 +114,7 @@
                     <input type="submit" value="save" class="savebtn" form="form-setting">
                 </div>
             </form>
-            <form action="#" class="form-login" id="form-login">
+            <form action="login.php" class="form-login" id="form-login" method="POST">
                 <div class="d-flex justify-content-center">
                     <h2 style="color: var(--color);">LOGIN</h2>
                     <div onclick="closeLogin()" class="closeBtn"><i class="fa-solid fa-xmark color2"></i></div>
@@ -125,10 +126,10 @@
                     <div class="separate"></div>
                 </div>
                 <label class="color2 mt-3">Email: </label><br>
-                <input type="text" placeholder="example@gmail.com" class="email" >
+                <input type="text" placeholder="example@gmail.com" class="email" name="email" >
                 <span class="description"></span><br>
                 <label class="color2 mt-3">Password: </label><br>
-                <input type="password" class="password">
+                <input type="password" class="password" name="password">
                 <span class="description"></span><br>
                 <button stype="submit" class="submit">Login with email</button>
                 <a href="#" class="color2 d-flex justify-content-center mb-3">Forgot password</a>
@@ -186,15 +187,38 @@
             </div>
             <div class="navbar-separate2"></div>
         </div>
+        
+        <?php
+   $sql = "SELECT * FROM tasks WHERE userID = ".$_SESSION['id'];
+   $result = mysqli_query($conn, $sql); 
+   while($row = mysqli_fetch_assoc($result)){
+?>
+        <div class="show-task mt-3">
+            <div class="d-flex w-100 justify-content-between">
+                <span>
+                    <button><i class="fa-solid fa-circle-check"></i></button>
+                    <b><?php echo $row['title']; ?></b>
+                </span>
+                <span>
+                    <span><?php echo $row['currentTime']; ?> / <?php echo $row['finishTime']; ?></span>
+                    <button><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                </span>
+            </div>
+            <div class="show-note">
+                <p><?php echo $row['description']; ?></p>
+            </div>
+        </div>
+<?php }
+?>
         <div class="task">
             <button class="btn-add-task" onclick="openAddTask()" id="btn-addTask"><b><i class="fa-solid fa-circle-plus"></i> Add Task</b></button>
         </div>
-        <form action="" class="form-addTask" id="form-addTask" method="POST">
+        <form action="handleSaveTask.php" class="form-addTask" id="form-addTask" method="get">
             <div class="px-3">
-                <input type="text" class="title mb-5" id="title" placeholder="What are you working on?"></input>
+                <input type="text" class="title mb-5" id="title" name="title" placeholder="What are you working on?" required></input>
                 <b>Est Pomodoros</b><br>
-                <input type="number" class="est mb-3" id="est"><br>
-                <span> <input type="text" id="note" class="note mb-2" placeholder="Some note"> </span> <span> + Add Project <i class="fa-solid fa-lock"></i> </span>
+                <input type="number" class="est mb-3" id="est" name="est" required><br>
+                <span> <input type="text" id="note" name="note" class="note mb-2" placeholder="Some note"> </span> <span> + Add Project <i class="fa-solid fa-lock"></i> </span>
             </div>
             <div class="btn-Form-addTask mt-4">
                 <button class="btn btn-light" onclick="closeAddTask()">Cancel</button>

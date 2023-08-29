@@ -353,6 +353,7 @@ body{
     border: none;
     border-radius: 5px;
     height: 50px;
+    padding: 10px;
 }
 #btn-skip{
     display: none;
@@ -366,4 +367,33 @@ body{
     align-items: center;
     justify-content: center;
     transform: translateX(-50%);
+}
+
+
+.show-task{
+    margin: 0 auto;
+    background-color: white;
+    width: 480px;
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.632);
+    border-radius: 5px;
+    padding: 10px;
+}
+.show-task button > i{
+    color:#33333384
+}
+.show-task button{
+    border: none;
+    font-size: 23px;
+    border-radius: 5px;
+    background-color: white;
+}
+.show-note{
+    background-color: antiquewhite;
+    padding: 7px;
+    border-radius: 7px;
+    margin: 10px;
+}
+.show-note p{
+    margin: 0;
 }
