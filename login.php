@@ -16,6 +16,8 @@
         $row = mysqli_fetch_array($table);
         session_start();
         $_SESSION["id"] = $row['id'];
+        $encryption_value = openssl_encrypt($row['id'],"AES-128-CTR","account");
+        setcookie("account",$encryption_value,time()+20);
         echo '<script>
                 location.href = "http://localhost/todolist/index.php";
             </script>';

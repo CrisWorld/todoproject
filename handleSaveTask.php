@@ -1,3 +1,4 @@
+
 <?php
     include('connect.php');
 
@@ -22,5 +23,4 @@
     location.href = "http://localhost/todolist/index.php";
     </script>';
     }
-    
 ?>
