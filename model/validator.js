@@ -81,3 +81,4 @@ validator.isSame = (form,selector,depselector,descript) => {
         return false;
     }
 }
+export default validator;

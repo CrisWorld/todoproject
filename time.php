@@ -1,5 +1,5 @@
 <?php
-    include('connect.php');
+    include('./action/connect.php');
     session_start();
 
     // Set the new timezone

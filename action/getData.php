@@ -1,6 +1,5 @@
 <?php
-    // error_reporting(0);
-    include('./connect.php');
+    include('connect.php');
     function getData($id){
         global $conn;
         global $data;

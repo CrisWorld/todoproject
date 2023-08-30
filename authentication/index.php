@@ -1,8 +1,18 @@
 <?php 
-    include '../sendMail.php';
+    include '../action/connect.php';
     session_start();
     // error_reporting(0);
     if (isset($_POST['email'],$_POST['fullname'],$_POST['password'])){
+        $email = $_POST['email'];
+        $query = "SELECT username FROM users where username = '$email'";
+        $result = mysqli_query($conn, $query);
+        $num_row = mysqli_num_rows($result);
+        if ($num_row != 0){
+            // Email tồn tại
+            $_SESSION['existEmail'] = true;
+            header("Location: ../");
+            exit(); 
+        }
         $code = strval(rand(100000, 999999));
         $encryption_key = "ripemd128"; // Đảm bảo độ dài của khóa là 16 byte (128 bit)
         $encrypted_data = hash($encryption_key, $code);
@@ -16,7 +26,8 @@
             <h2 style='background-color: #f2f2f2; padding: 10px; display: inline-block;'>Mã Xác Thực: $code</h2>
             <p>Vui lòng sử dụng mã này để xác thực tài khoản của bạn.</p>
             <p>Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi!</p>";
-        GuiMail($content,$_POST['email'],$_POST['fullname']);
+        include '../action/sendMail.php';
+        sendMail($content,$_POST['email'],$_POST['fullname']);
     } else {
         $_SESSION['error'] = true;
         header('Location: ../');
@@ -35,7 +46,7 @@
         <img src="../image/tomato.png" alt="" style="width: 30px; aspect-ratio: 1 / 1; color: white;">
         Tomató
     </a>
-    <form action="../register.php" method="POST">
+    <form action="../action/register.php" method="POST">
         <img src="../image/code.png" alt="" style="height: 100%;">
         <div class="input">
             <h1 style="text-transform: uppercase; color: #1f2659; margin-bottom: 50px;">authentication</h1>

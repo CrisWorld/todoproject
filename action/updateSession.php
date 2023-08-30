@@ -1,5 +1,5 @@
 <?php 
-    include('./connect.php');
+    include('connect.php');
     session_start();
     if (isset($_POST["pomodoroColor"]) && isset($_POST["shortBreakColor"]) && isset($_POST["longBreakColor"])
     && isset($_POST['pomodoro-value']) && isset($_POST['shortbreak-value']) && isset($_POST['longbreak-value']) 
@@ -27,6 +27,6 @@
         if (isset($_POST['autostartbreak'])) $_SESSION["setting"]["autoStartBreak"] = $_POST['autostartbreak'];
         if (isset($_POST['autostartpomodoro'])) $_SESSION["setting"]["autoStartPomodoro"] = $_POST['autostartpomodoro'];
         if (isset($_POST['autochecktask'])) $_SESSION["setting"]["autoCheckTask"] = $_POST['autochecktask'];
-        header('Location: /todolist/');
+        header('Location: ../');
     } else echo "<script> alert('Thất bại'); </script>"; 
 ?>  

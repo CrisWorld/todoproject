@@ -1,5 +1,6 @@
 <?php 
-    include('./connect.php');
+    include('connect.php');
+    session_start();
     if (isset($_POST["pomodoroColor"]) && isset($_POST["shortBreakColor"]) && isset($_POST["longBreakColor"])
     && isset($_POST['pomodoro-value']) && isset($_POST['shortbreak-value']) && isset($_POST['longbreak-value']) 
     && isset($_POST['longbreakinterval'])
@@ -27,6 +28,11 @@
         if (isset($_POST['autochecktask'])) $query .= ",autoCheckTask = ".$_POST['autochecktask']." ";
         $query .= "WHERE id = ".$arr['id'];
         $result = mysqli_query($conn, $query);
-        if ($result) header('Location: /todolist/');
-    } else echo "<script> alert('Thất bại'); </script>"; 
+        if ($result) {
+            $_SESSION['isSaved'] = true;
+        } else $_SESSION['isSaved'] = false;
+    } else {
+        $_SESSION['error'] = true;
+    }
+    header('Location: ../');
 ?>  

@@ -1,12 +1,12 @@
 <?php 
-    include('./getData.php');
+    include('./action/getData.php');
     session_start();
-    error_reporting(0);
+    // error_reporting(0);
     $id;
-    if (isset($_COOKIE['account'])){ // check người dùng đang đăng nhập
+    if (isset($_COOKIE['account'],$_SESSION['id'])){ // check người dùng đang đăng nhập
         global $id;
         global $data;
-        $id = openssl_decrypt($_COOKIE['account'],"AES-128-CTR","account");
+        $id = $_SESSION['id'];
         getData($id);
         $_SESSION['id'] = $id;
     } else {
@@ -59,13 +59,13 @@
                 <button><i class="fa-solid fa-chart-simple"></i> Report</button>
                 <button onclick="openSetting()"><i class="fa-solid fa-gear"></i> Setting</button>
                 <?php if (isset($_COOKIE['account'])){
-                    echo '<button onclick="movePage()"><i class="fa-solid fa-circle-user"></i> Logout</button>';
+                    echo '<a id="logout" href="./action/logout.php"><i class="fa-solid fa-circle-user"></i> Logout</a>';
                 } else echo '<button onclick="openLogin()"><i class="fa-solid fa-circle-user"></i> Login</button>' ?>
             </div>
 
             <form action="<?php
-                 if(isset($_COOKIE['account'])) echo "update.php";
-                    else echo "updateSession.php";
+                 if(isset($_COOKIE['account'])) echo "./action/update.php";
+                    else echo "./action/updateSession.php";
                  ?>" class="form-setting" id="form-setting" method="POST">
                 <input type="hidden" name="pomodoroColor" id="pomodoroColor">
                 <input type="hidden" name="shortBreakColor" id="shortBreakColor">
@@ -150,7 +150,7 @@
                     <input type="submit" value="save" class="savebtn" form="form-setting">
                 </div>
             </form>
-            <form action="login.php" class="form-login" id="form-login" method="POST">
+            <form action="action/login.php" class="form-login" id="form-login" method="POST">
                 <div class="d-flex justify-content-center">
                     <h2 style="color: var(--color);">LOGIN</h2>
                     <div onclick="closeLogin()" class="closeBtn"><i class="fa-solid fa-xmark color2"></i></div>
@@ -228,10 +228,11 @@
         </div>
         
         <?php
-   $sql = "SELECT * FROM tasks WHERE userID = ".$_SESSION['id'];
-   $result = mysqli_query($conn, $sql); 
-   while($row = mysqli_fetch_assoc($result)){
-?>
+    if(isset($_SESSION['id'])){
+        $sql = "SELECT * FROM tasks WHERE userID = ".$_SESSION['id'];
+        $result = mysqli_query($conn, $sql);
+        while($row = mysqli_fetch_assoc($result)){
+        ?>
         <div class="show-task mt-3">
             <div class="d-flex w-100 justify-content-between">
                 <span>
@@ -248,11 +249,12 @@
             </div>
         </div>
 <?php }
+    }
 ?>
         <div class="task">
             <button class="btn-add-task" onclick="openAddTask()" id="btn-addTask"><b><i class="fa-solid fa-circle-plus"></i> Add Task</b></button>
         </div>
-        <form action="handleSaveTask.php" class="form-addTask" id="form-addTask" method="get">
+        <form action="./action/handleSaveTask.php" class="form-addTask" id="form-addTask" method="get">
             <div class="px-3">
                 <input type="text" class="title mb-5" id="title" name="title" placeholder="What are you working on?" required></input>
                 <b>Est Pomodoros</b><br>
@@ -279,91 +281,12 @@
     <audio id="bell" src="./sound/bell.mp3" loop volume="1"></audio>
     <div id="message-inf">
     </div>
-    <script type="module" src="config.js"></script>
-    <script src="./move.js"></script>
-    <script src="./eventDom.js"></script>
-    <script src="./validator.js"></script>
-    <script src="./togglemessage.js"></script>
-    <script src="./sound.js"></script>
-    <script>
-        validator.rules = [
-            {
-                selectorForm: "#form-login",
-                constraints: [
-                    [
-                        (form) => validator.isEmail(form,'.email',"Không phải là Email !"),
-                        '.email'
-                    ],
-                    [
-                        (form) => validator.isAtLeast(form,'.password',8,"Mật khẩu cần tối thiểu 8 ký tự !"),
-                        '.password'
-                    ]
-                ]
-            },
-            {
-                selectorForm: "#form-signup",
-                constraints: [
-                    [
-                        (form) => validator.isAtLeast(form,'#fullname',10, "Cần tối thiểu 10 ký tự !"),
-                        '#fullname'
-                    ],
-                    [
-                        (form) => validator.isEmail(form,'#email', "Không phải là Email !"),
-                        '#email'
-                    ],
-                    [
-                        (form) => validator.isAtLeast(form,'#password',8, "Mật khẩu cần tối thiểu 8 ký tự !"),
-                        '#password'
-                    ],
-                    [
-                        (form) => validator.isSame(form,'#password', '#confirm-password', "Mật khẩu xác nhận không hợp lệ"),
-                        '#confirm-password'
-                    ]
-                ]
-            }
-        ]
-        validator();
-    </script>
+    <script type="module" src="./model/config.js"></script>
+    <script src="./event/eventDom.js"></script>
+    <script src="./event/togglemessage.js"></script>
 </body>
 </html>
 <?php 
     mysqli_close($conn);
-    // xử lý login
-    if (isset($_COOKIE["account"])){
-        if (strcmp($_SESSION["login-info"],"success") == 0){
-            unset($_SESSION["login-info"]);
-            echo '<script>addMessage("Đăng nhập thành công", "success")</script>';
-        }
-    } else if (isset($_SESSION["login-info"])){
-        if(strcmp($_SESSION["login-info"],"fail") == 0) {
-            echo '<script>addMessage("Đăng nhập thất bại", "error")</script>';
-            unset($_SESSION["login-info"]);
-        }
-    } else if (isset($_SESSION["logout-info"]) && $_SESSION["logout-info"]){
-        echo '<script>addMessage("Đã đăng xuất", "information")</script>';
-        unset($_SESSION["logout-info"]);
-    } else echo '<script>addMessage("Bạn chưa đăng nhập", "information")</script>';
-    // xử lý register
-    if (isset($_SESSION["registerStatus"])){
-        if ($_SESSION["registerStatus"]) echo '<script>addMessage("Đăng ký thành công", "success")</script>';
-        else echo '<script>addMessage("Đăng ký thất bại", "error")</script>';
-        unset($_SESSION["registerStatus"]);
-    }
-    if (isset($_SESSION['existEmail']) && $_SESSION['existEmail']){
-        echo '<script>addMessage("Email đã tồn tại", "error")</script>';
-        unset($_SESSION["existEmail"]);
-    }
-    if($_SESSION['wrongCode']){
-        echo '<script>addMessage("Sai mã xác nhận", "error")</script>';
-        unset($_SESSION["wrongCode"]);
-    }
-    // Lỗi không mong muốn
-    if (isset($_SESSION['error']) && $_SESSION['error']){
-        echo '<script>addMessage("Lỗi không mong muốn", "error")</script>';
-        unset($_SESSION["error"]);
-    }
+    include('./handle/handlemessage.php');
 ?>
-<script>
-    window.addEventListener('online', (e) => addMessage("Bạn đang trực tuyến", "success"));
-    window.addEventListener('offline', (e) => addMessage("Không kết nối trực tuyến", "error"));
-</script>
