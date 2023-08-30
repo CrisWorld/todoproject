@@ -51,6 +51,8 @@ timer.startCount = function({currentTime,futureTime,percent}){
         if (currentTime === futureTime) {
             clearInterval(myTimer);
             if (timer.setting.currentMode == 1) timer.count += 1;
+            timer.sound.load(); // Âm thanh reo khi đến giờ
+            timer.sound.play();
             timer.checkLongBreakInterval();
         } else { 
             btn.onclick = timer.pauseCount.bind(btn, {currentTime, futureTime, percent},myTimer);

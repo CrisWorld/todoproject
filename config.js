@@ -8,6 +8,11 @@ timer.time = timer.setTime('time');
 timer.progress = timer.setProgress('navbar-separate1');
 timer.count = 0;
 timer.skipBtn = document.getElementById('btn-skip');
+timer.sound = document.getElementById("bell");
+window.addEventListener("click", () => {
+    timer.sound.pause();
+});
+
 // cấu hình setting
 timer.setting = {
     pomodoro: document.getElementById("pomodoro-value").value,

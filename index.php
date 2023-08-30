@@ -1,8 +1,9 @@
 <?php 
     include('./getData.php');
     session_start();
+    error_reporting(0);
     $id;
-    if (isset($_COOKIE['account'])){
+    if (isset($_COOKIE['account'])){ // check người dùng đang đăng nhập
         global $id;
         global $data;
         $id = openssl_decrypt($_COOKIE['account'],"AES-128-CTR","account");
@@ -10,6 +11,8 @@
         $_SESSION['id'] = $id;
     } else {
         global $data;
+        // nếu $session setting của người dùng tồn tại thì sử dụng lại còn nếu không có
+        // sẽ khởi tạo 1 session setting mặc định
         if (isset($_SESSION['setting'])){
             $data = $_SESSION['setting'];
         } else {
@@ -51,11 +54,11 @@
 <body>
     <div class="main">
         <div class="header">
-            <h5><img src="image/tomato.png" alt="" style="width: 30px; aspect-ratio: 1 / 1; color: white;"> Tomató</h5>
+            <a href="index.php" id="logo"><img src="image/tomato.png" alt="" style="width: 30px; aspect-ratio: 1 / 1; color: white; margin: 0 0 7px;"> Tomató</a>
             <div class="button">
                 <button><i class="fa-solid fa-chart-simple"></i> Report</button>
                 <button onclick="openSetting()"><i class="fa-solid fa-gear"></i> Setting</button>
-                <?php if (isset($_SESSION['id'])){
+                <?php if (isset($_COOKIE['account'])){
                     echo '<button onclick="movePage()"><i class="fa-solid fa-circle-user"></i> Logout</button>';
                 } else echo '<button onclick="openLogin()"><i class="fa-solid fa-circle-user"></i> Login</button>' ?>
             </div>
@@ -171,7 +174,7 @@
                     <span class="color3 " onclick="openSignup()">Create account</span>
                 </span>
             </form>
-            <form action="#" class="form-signup" id="form-signup">
+            <form action="./authentication/" class="form-signup" id="form-signup" method="POST">
                 <div class="d-flex justify-content-center">
                     <h2>CREATE  ACCOUNT</h2>
                     <div onclick="closeSignup()" class="closeBtn"><i class="fa-solid fa-xmark color2"></i></div>
@@ -183,19 +186,22 @@
                     <div class="separate"></div>
                 </div>
                 <label class="color2 mt-2">Name: </label><br>
-                <input type="text" placeholder="Nguyen Van A" id="fullname">
+                <input type="text" placeholder="Nguyen Van A" id="fullname" name="fullname">
                 <span class="description"></span><br>
                 <label class="color2 mt-2">Email: </label><br>
-                <input type="text" placeholder="example@gmail.com" id="email">
+                <input type="text" placeholder="example@gmail.com" id="email" name="email">
                 <span class="description"></span><br>
                 <label class="color2 mt-2">Password: </label><br>
-                <input type="password" id="password">
+                <input type="password" id="password" name="password">
                 <span class="description"></span><br>
                 <label class="color2 mt-2">Confirm: </label><br>
                 <input type="password" id="confirm-password">
                 <span class="description"></span><br>
                 <button stype="submit" class="submit">Signup with email</button>
-                <span class="color2 mx-4">Already have an account ? </span><span class="color3" onclick="openLogin()">Log in</span>
+                <span class="color2 mx-4">
+                    Already have an account ?
+                    <span class="color3" onclick="openLogin()">Log in</span>
+                </span>
             </form>
         </div>
         <div class="navbar-separate1" id="navbar-separate1"></div>
@@ -236,20 +242,105 @@
             </div>
         </form>
     </div>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+        </symbol>
+        <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+        </symbol>
+        <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+        </symbol>
+    </svg>
+    <audio id="bell" src="./sound/bell.mp3" loop volume="1"></audio>
+    <div id="message-inf">
+    </div>
     <script type="module" src="config.js"></script>
     <script src="./move.js"></script>
     <script src="./eventDom.js"></script>
     <script src="./validator.js"></script>
+    <script src="./togglemessage.js"></script>
+    <script src="./sound.js"></script>
     <script>
-        validator.checkEmail('.email',"Không phải là Email !");
-        validator.checkLength('.password',8,"Mật khẩu cần tối thiểu 8 ký tự !");
-        validator.checkLength('#fullname',10, "Cần tối thiểu 10 ký tự !");
-        validator.checkEmail('#email', "Không phải là Email !");
-        validator.checkLength('#password',8, "Mật khẩu cần tối thiểu 8 ký tự !");
-        validator.isSame('#password', '#confirm-password', "Mật khẩu xác nhận không hợp lệ");
+        validator.rules = [
+            {
+                selectorForm: "#form-login",
+                constraints: [
+                    [
+                        (form) => validator.isEmail(form,'.email',"Không phải là Email !"),
+                        '.email'
+                    ],
+                    [
+                        (form) => validator.isAtLeast(form,'.password',8,"Mật khẩu cần tối thiểu 8 ký tự !"),
+                        '.password'
+                    ]
+                ]
+            },
+            {
+                selectorForm: "#form-signup",
+                constraints: [
+                    [
+                        (form) => validator.isAtLeast(form,'#fullname',10, "Cần tối thiểu 10 ký tự !"),
+                        '#fullname'
+                    ],
+                    [
+                        (form) => validator.isEmail(form,'#email', "Không phải là Email !"),
+                        '#email'
+                    ],
+                    [
+                        (form) => validator.isAtLeast(form,'#password',8, "Mật khẩu cần tối thiểu 8 ký tự !"),
+                        '#password'
+                    ],
+                    [
+                        (form) => validator.isSame(form,'#password', '#confirm-password', "Mật khẩu xác nhận không hợp lệ"),
+                        '#confirm-password'
+                    ]
+                ]
+            }
+        ]
+        validator();
     </script>
 </body>
 </html>
 <?php 
     mysqli_close($conn);
+    // xử lý login
+    if (isset($_COOKIE["account"])){
+        if (strcmp($_SESSION["login-info"],"success") == 0){
+            unset($_SESSION["login-info"]);
+            echo '<script>addMessage("Đăng nhập thành công", "success")</script>';
+        }
+    } else if (isset($_SESSION["login-info"])){
+        if(strcmp($_SESSION["login-info"],"fail") == 0) {
+            echo '<script>addMessage("Đăng nhập thất bại", "error")</script>';
+            unset($_SESSION["login-info"]);
+        }
+    } else if (isset($_SESSION["logout-info"]) && $_SESSION["logout-info"]){
+        echo '<script>addMessage("Đã đăng xuất", "information")</script>';
+        unset($_SESSION["logout-info"]);
+    } else echo '<script>addMessage("Bạn chưa đăng nhập", "information")</script>';
+    // xử lý register
+    if (isset($_SESSION["registerStatus"])){
+        if ($_SESSION["registerStatus"]) echo '<script>addMessage("Đăng ký thành công", "success")</script>';
+        else echo '<script>addMessage("Đăng ký thất bại", "error")</script>';
+        unset($_SESSION["registerStatus"]);
+    }
+    if (isset($_SESSION['existEmail']) && $_SESSION['existEmail']){
+        echo '<script>addMessage("Email đã tồn tại", "error")</script>';
+        unset($_SESSION["existEmail"]);
+    }
+    if($_SESSION['wrongCode']){
+        echo '<script>addMessage("Sai mã xác nhận", "error")</script>';
+        unset($_SESSION["wrongCode"]);
+    }
+    // Lỗi không mong muốn
+    if (isset($_SESSION['error']) && $_SESSION['error']){
+        echo '<script>addMessage("Lỗi không mong muốn", "error")</script>';
+        unset($_SESSION["error"]);
+    }
 ?>
+<script>
+    window.addEventListener('online', (e) => addMessage("Bạn đang trực tuyến", "success"));
+    window.addEventListener('offline', (e) => addMessage("Không kết nối trực tuyến", "error"));
+</script>
