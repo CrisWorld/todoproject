@@ -1,6 +1,5 @@
 <?php
      error_reporting(0);
-    
      $countTask = 0;
      $totalTask = 0;
      $totalEst = 0;

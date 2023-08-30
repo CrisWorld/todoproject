@@ -49,6 +49,7 @@ timer.startCount = function({currentTime,futureTime,percent}){
         percent += (1000/futureTime)*100;
         timer.render(currentTime, futureTime,percent, {time, progress});
         if (currentTime === futureTime) {
+
             clearInterval(myTimer);
             if (timer.setting.currentMode == 1) timer.count += 1;
             timer.sound.load(); // Âm thanh reo khi đến giờ
@@ -155,7 +156,8 @@ timer.checkLongBreakInterval = function (){
     } else {
         setting.currentMode = 1;
         timer.switchPage(document.getElementById('1'));
-    } 
+    }
+    
 }
 timer.skipTime = () => {
     clearInterval(timer.myTimer);

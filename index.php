@@ -2,7 +2,6 @@
     include('./getData.php');
     session_start();
     error_reporting(0);
-
     $id;
     if (isset($_COOKIE['account'])){ // check người dùng đang đăng nhập
         global $id;

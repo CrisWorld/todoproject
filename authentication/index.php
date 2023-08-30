@@ -6,9 +6,6 @@
         $code = strval(rand(100000, 999999));
         $encryption_key = "ripemd128"; // Đảm bảo độ dài của khóa là 16 byte (128 bit)
         $encrypted_data = hash($encryption_key, $code);
-        echo $encrypted_data."<br>";
-        $encrypted_data = hash($encryption_key, $code);
-        echo $encrypted_data."<br>";
         if (isset($_COOKIE["code"])) {
             unset($_COOKIE["code"]);
             setcookie("code", '', 0, "/"); 
