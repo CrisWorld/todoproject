@@ -221,7 +221,7 @@
             <p>#1</p>
             <b id="title">Time to focus!</b>
             <div class="footer-task">
-                <h4>Tasks</h4>
+                <h4>Tasks </h4>
                 <i class="fa-solid fa-ellipsis-vertical"></i>
             </div>
             <div class="navbar-separate2"></div>
@@ -231,26 +231,67 @@
     if(isset($_SESSION['id'])){
         $sql = "SELECT * FROM tasks WHERE userID = ".$_SESSION['id'];
         $result = mysqli_query($conn, $sql);
+        $taskID =0;
         while($row = mysqli_fetch_assoc($result)){
+            
         ?>
-        <div class="show-task mt-3">
-            <div class="d-flex w-100 justify-content-between">
-                <span>
-                    <button><i class="fa-solid fa-circle-check"></i></button>
-                    <b><?php echo $row['title']; ?></b>
-                </span>
-                <span>
-                    <span><?php echo $row['currentTime']; ?> / <?php echo $row['finishTime']; ?></span>
-                    <button><i class="fa-solid fa-ellipsis-vertical"></i></button>
-                </span>
-            </div>
-            <div class="show-note">
-                <p><?php echo $row['description']; ?></p>
+        <div class="show-task mt-3 d-flex " style="padding:0; position:relative;" >
+            <button class="btn-idTask" id="btn-idTask" style="background-color: white; height: 100px; width: 5%;" 
+            onclick="chooseTask(<?php echo $row['taskID']; ?>)" ></button>
+            <div style="width: 95%; padding: 10px;">
+                <div class="d-flex w-100 justify-content-between">
+                    <span>
+                        <button><i class="fa-solid fa-circle-check"></i></button>
+                        <b><?php echo $row['title']; ?></b>
+                    </span>
+                    <span>
+                        <span class="currentTime" id="currentTime"> </span> / <span> <?php echo $row['finishTime']; ?></span>
+                        <button><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </span>
+                </div>
+                <div class="show-note">
+                    <p><?php echo $row['description']; ?></p>
+                </div>
             </div>
         </div>
 <?php }
     }
 ?>
+    <script>
+        function checkCookie() {
+            var id= document.cookie;
+            if (id!="") {
+                alert("Success ! " +id);
+            } else {
+                alert("Fail !" );
+            }
+        }
+        function chooseTask(x){
+            var idbd = x;
+            var idtask = x-1;
+            const collection = document.getElementsByClassName("btn-idTask");
+            for (var i = 0; i < collection.length ; i++) {
+                if(i == idtask){
+                    collection[i].style.backgroundColor = "black";
+                }
+                else{
+                    collection[i].style.backgroundColor = "white";
+                }
+            }
+            document.cookie = "idtask =" + idbd;
+            checkCookie();
+            
+        }
+        const collect = document.getElementsByClassName("currentTime");
+        var currentTime = 0;
+        const ArrcurrentTime = [];
+        for (var i = 0; i < collect.length ; i++) {
+                collect[i].innerHTML = currentTime;
+                ArrcurrentTime[i] = currentTime;
+            }
+            
+
+    </script>
         <div class="task">
             <button class="btn-add-task" onclick="openAddTask()" id="btn-addTask"><b><i class="fa-solid fa-circle-plus"></i> Add Task</b></button>
         </div>
@@ -266,6 +307,10 @@
                 <button class="btn btn-dark me-3">Save</button>
             </div>
         </form>
+        <div class="totalTime">
+            <span class="me-1">Pomos: </span> <b>0/ <?php include('./time.php'); echo caculateEst(); ?></b>
+            <span class="ms-4 me-1">Finish At: </span> <b> <?php caculateTime(); ?> </b>
+        </div>
     </div>
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
@@ -284,6 +329,7 @@
     <script type="module" src="./model/config.js"></script>
     <script src="./event/eventDom.js"></script>
     <script src="./event/togglemessage.js"></script>
+    <script src="./Task.js"></script>
 </body>
 </html>
 <?php 
