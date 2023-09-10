@@ -335,7 +335,6 @@
     <script type="module" src="./model/config.js"></script>
     <script src="./event/eventDom.js"></script>
     <script src="./event/togglemessage.js"></script>
-    <script src="./Task.js"></script>
 </body>
 </html>
 <?php 
