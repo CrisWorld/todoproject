@@ -1,20 +1,31 @@
 <?php
     include('./action/connect.php');
-    session_start();
 
-    // Set the new timezone
-    date_default_timezone_set('Asia/Ho_Chi_Minh');
-    $time = date('h:i');
-    $time_stamp = strtotime($time);
-    $new = $time_stamp + 1*25*60;
-    echo date('h:i',$new);
+
     function caculateEst(){
+        global $conn; 
         $caculateEst = 0;
-        $sql = "SELECT finishTime FROM tasks WHERE userID = ".$_SESSION['id'];
+        $sql = "SELECT finishTime, currentTime FROM tasks WHERE userID = ".$_SESSION['id'];
         $query = mysqli_query($conn, $sql);
-        white($row = mysqli_fetch_array($query)){
-            $caculateEst = $caculateEst + $row['finishTime'];
+        while($row = mysqli_fetch_assoc($query)){
+            $caculateEst = $caculateEst + $row['finishTime'] - $row['currentTime'];
         }
-        echo $caculateEst;
+        return $caculateEst;
     }
+
+    function caculateTime(){
+        global $conn;
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $time = date('h:i');
+        $time_stamp = strtotime($time);
+        $sql = "SELECT pomodoro, shortbreak, longbreak, longBreakInterval FROM setting WHERE id = ".$_SESSION['id'];
+        $qr = mysqli_query($conn, $sql);
+        while($kq = mysqli_fetch_assoc($qr)){
+            $floored = floor(caculateEst()/$kq['longBreakInterval']);
+            $new = $time_stamp + caculateEst()*$kq['pomodoro']*60 + (caculateEst()-$floored - 1)*$kq['shortbreak']*60 + $floored*$kq['longbreak']*60;
+        }
+        echo date('h:i', $new);
+    }
+
 ?>
+<script src="./model/timer.js"></script>

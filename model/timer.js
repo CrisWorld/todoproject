@@ -157,7 +157,27 @@ timer.checkLongBreakInterval = function (){
         setting.currentMode = 1;
         timer.switchPage(document.getElementById('1'));
     }
-    
+
+    if(setting.currentMode == 3 || setting.currentMode == 2){
+        let cookies = document.cookie; //Lấy toàn bộ cookie
+        let cookiesArray = cookies.split(';'); // Phân tách các cookie bởi dấu chấm phẩy
+        let take_name = 'idtask'; // Chỉ định tên của cookie cần lấy
+
+        for(var c of cookiesArray){ 
+            var cArray = c.split('='); //Phân tác các cặp name value bởi dấu bằng
+            if( cArray[0] == take_name){ //Lấy ra cookie có name chỉ định
+                var idtask = cArray[1] ;  // [key,value] 
+            }
+        }
+        const collection2 = document.getElementsByClassName("currentTime");
+        for (var i = 0; i < collection2.length ; i++) {
+            if(i == (idtask -1 )){
+                ArrcurrentTime[i] += 1;
+                collection2[i].innerHTML = ArrcurrentTime[i];
+                break;
+                }
+        }
+    }
 }
 timer.skipTime = () => {
     clearInterval(timer.myTimer);
