@@ -268,7 +268,11 @@ body{
     color:rgba(165, 42, 42, 0.864);
     font-weight: 800;
 }
-.form-login button, .form-signup button{
+.form-login button, .form-signup button, #googlelogin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
     box-shadow: 0px 0px 5px 0px #333;
     color: #333333cc;
     width: 100%;

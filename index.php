@@ -1,14 +1,20 @@
 <?php 
-    include('./action/getData.php');
     session_start();
-    // error_reporting(0);
+    error_reporting(0);
+    require './action/getData.php';
+    require './action/connect.php';
+    require './GoogleAuthenticator/vendor/autoload.php';
+    require './googleFunction.php';
+    require('./handle/handleGoogleLogin.php');
+    if (isset($_GET['code'])){
+        echo '<script>location.href="http://localhost/todolist/"</script>';
+    }
     $id;
     if (isset($_COOKIE['account'],$_SESSION['id'])){ // check người dùng đang đăng nhập
         global $id;
         global $data;
         $id = $_SESSION['id'];
         getData($id);
-        $_SESSION['id'] = $id;
     } else {
         global $data;
         // nếu $session setting của người dùng tồn tại thì sử dụng lại còn nếu không có
@@ -155,7 +161,7 @@
                     <h2 style="color: var(--color);">LOGIN</h2>
                     <div onclick="closeLogin()" class="closeBtn"><i class="fa-solid fa-xmark color2"></i></div>
                 </div>
-                <button><i class="fa-brands fa-google"></i> Login with Google</button><br>
+                <a id="googlelogin" href="<?php echo $url ?>"><i class="fa-brands fa-google"></i> Login with Google</a><br>
                 <div class="d-flex justify-content-between">
                     <div class="separate"></div>
                     <span class="color1">OR</span>
@@ -179,7 +185,7 @@
                     <h2>CREATE  ACCOUNT</h2>
                     <div onclick="closeSignup()" class="closeBtn"><i class="fa-solid fa-xmark color2"></i></div>
                 </div>
-                <button><i class="fa-brands fa-google"></i> Signup with Google</button><br>
+                <a id="googlelogin" href="<?php echo $url ?>"><i class="fa-brands fa-google"></i> Signup with Google</a><br>
                 <div class="d-flex justify-content-between">
                     <div class="separate"></div>
                     <span class="color1">OR</span>
