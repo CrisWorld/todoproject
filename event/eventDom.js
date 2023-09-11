@@ -69,3 +69,34 @@ listCheckbox.forEach((e) => {
         }
     })
 });
+///
+// function checkCookie() {
+//     var id= document.cookie;
+//     if (id!="") {
+//         alert("Success ! " +id);
+//     } else {
+//         alert("Fail !" );
+//     }
+// }
+function chooseTask(x){
+    var idtask = x;
+    console.log("imple");
+    const collection = document.getElementsByClassName("btn-idTask");
+    for (var i = 0; i < collection.length ; i++) {
+        const id = collection[i].getAttribute("taskID");
+        if(id == idtask && chooseTask.currentTaskID != id){
+            collection[i].style.display = "block";
+            chooseTask.currentTaskID = id;
+            document.cookie = "idtask=" + idtask;
+        } else if (id == idtask && chooseTask.currentTaskID == id){
+            chooseTask.currentTaskID = undefined;
+            collection[i].style.display = "none";
+           document.cookie = "idtask=" + ";path=/todolist;expires=Thu, 01 Jan 1970 00:00:01 GMT"; // Xóa cookie
+        }
+        else{
+            collection[i].style.display = "none";
+        }
+    }
+    // checkCookie();
+}
+chooseTask.currentTaskID = undefined;

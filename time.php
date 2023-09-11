@@ -1,7 +1,6 @@
 <?php
     include('./action/connect.php');
 
-
     function caculateEst(){
         global $conn; 
         $caculateEst = 0;
@@ -28,4 +27,3 @@
     }
 
 ?>
-<script src="./model/timer.js"></script>

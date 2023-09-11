@@ -162,21 +162,16 @@ timer.checkLongBreakInterval = function (){
         let cookies = document.cookie; //Lấy toàn bộ cookie
         let cookiesArray = cookies.split(';'); // Phân tách các cookie bởi dấu chấm phẩy
         let take_name = 'idtask'; // Chỉ định tên của cookie cần lấy
-
+        console.log(cookies);
         for(var c of cookiesArray){ 
             var cArray = c.split('='); //Phân tác các cặp name value bởi dấu bằng
             if( cArray[0] == take_name){ //Lấy ra cookie có name chỉ định
                 var idtask = cArray[1] ;  // [key,value] 
             }
         }
-        const collection2 = document.getElementsByClassName("currentTime");
-        for (var i = 0; i < collection2.length ; i++) {
-            if(i == (idtask -1 )){
-                ArrcurrentTime[i] += 1;
-                collection2[i].innerHTML = ArrcurrentTime[i];
-                break;
-                }
-        }
+        let currentTime = document.querySelector(`span[taskID='${idtask}']`);
+        currentTime.innerHTML++;
+        saveEst(currentTime.innerHTML, idtask);
     }
 }
 timer.skipTime = () => {
@@ -184,4 +179,14 @@ timer.skipTime = () => {
     if (timer.setting.currentMode == 1) timer.count += 1;
     timer.checkLongBreakInterval();
 };
+function saveEst(currentTime, taskID){
+    var httpRequest = new XMLHttpRequest();
+    httpRequest.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            //...
+        }
+    };
+    httpRequest.open("GET", `handleEst.php?currentTime=${currentTime}&taskID=${taskID}`, true);
+    httpRequest.send();
+}
 export default timer;
