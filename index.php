@@ -1,14 +1,20 @@
-<?php 
-    include('./action/getData.php');
+<?php
     session_start();
     // error_reporting(0);
+    require './action/getData.php';
+    require './action/connect.php';
+    require './GoogleAuthenticator/vendor/autoload.php';
+    require './googleFunction.php';
+    require('./handle/handleGoogleLogin.php');
+    if (isset($_GET['code'])){
+        echo '<script>location.href="http://localhost/todolist/"</script>';
+    }
     $id;
     if (isset($_COOKIE['account'],$_SESSION['id'])){ // check người dùng đang đăng nhập
         global $id;
         global $data;
         $id = $_SESSION['id'];
         getData($id);
-        $_SESSION['id'] = $id;
     } else {
         global $data;
         // nếu $session setting của người dùng tồn tại thì sử dụng lại còn nếu không có
@@ -43,6 +49,7 @@
             ";
         ?>">
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Time focus!</title>
@@ -50,6 +57,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <script>
+        document.cookie = "idtask=" + ";path=/todolist;expires=Thu, 01 Jan 1970 00:00:01 GMT"; // Xóa cookie
+    </script>
 </head>
 <body>
     <div class="main">
@@ -155,7 +165,7 @@
                     <h2 style="color: var(--color);">LOGIN</h2>
                     <div onclick="closeLogin()" class="closeBtn"><i class="fa-solid fa-xmark color2"></i></div>
                 </div>
-                <button><i class="fa-brands fa-google"></i> Login with Google</button><br>
+                <a id="googlelogin" href="<?php echo $url ?>"><i class="fa-brands fa-google"></i> Login with Google</a><br>
                 <div class="d-flex justify-content-between">
                     <div class="separate"></div>
                     <span class="color1">OR</span>
@@ -179,7 +189,7 @@
                     <h2>CREATE  ACCOUNT</h2>
                     <div onclick="closeSignup()" class="closeBtn"><i class="fa-solid fa-xmark color2"></i></div>
                 </div>
-                <button><i class="fa-brands fa-google"></i> Signup with Google</button><br>
+                <a id="googlelogin" href="<?php echo $url ?>"><i class="fa-brands fa-google"></i> Signup with Google</a><br>
                 <div class="d-flex justify-content-between">
                     <div class="separate"></div>
                     <span class="color1">OR</span>
@@ -226,28 +236,28 @@
             </div>
             <div class="navbar-separate2"></div>
         </div>
-        
         <?php
     if(isset($_SESSION['id'])){
         $sql = "SELECT * FROM tasks WHERE userID = ".$_SESSION['id'];
         $result = mysqli_query($conn, $sql);
         $taskID =0;
         while($row = mysqli_fetch_assoc($result)){
-            
         ?>
-        <div class="show-task mt-3 d-flex " style="padding:0; position:relative;" >
-            <button class="btn-idTask" id="btn-idTask" style="background-color: white; height: 100px; width: 5%;" 
-            onclick="chooseTask(<?php echo $row['taskID']; ?>)" ></button>
-            <div style="width: 95%; padding: 10px;">
+        <div id="show-task" class="show-task mt-3 d-flex " style="padding:0; position:relative;" onclick="chooseTask(<?php echo $row['taskID']; ?>)">
+            <button class="btn-idTask" id="btn-idTask" taskID="<?php echo $row['taskID']; ?>"></button>
+            <div style="width: 95%; padding: 10px 10px 10px 30px;">
                 <div class="d-flex w-100 justify-content-between">
                     <span>
-                        <button><i class="fa-solid fa-circle-check"></i></button>
-                        <b><?php echo $row['title']; ?></b>
+                        <button id="btn-check"  ><i class="fa-solid fa-circle-check btncheck" onclick="finishTask(<?php echo $row['taskID']; ?>)" taskID="<?php echo $row['taskID']; ?>"></i></button>
+                        <b id="tt" class="tt" tasktt="<?php echo $row['taskID']; ?>"><?php echo $row['title']; ?></b>
                     </span>
-                    <span>
-                        <span class="currentTime" id="currentTime"> </span> / <span> <?php echo $row['finishTime']; ?></span>
-                        <button><i class="fa-solid fa-ellipsis-vertical"></i></button>
-                    </span>
+                    <div>
+                    <span id="currentTime" taskID="<?php echo $row['taskID']; ?>"><?php echo $row['currentTime']; ?></span>
+                        <span> 
+                                <?php echo "/ ".$row['finishTime']; ?>
+                        </span>
+                        <button class="btn-vertical" id="test" onclick="deleteTask()"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
                 </div>
                 <div class="show-note">
                     <p><?php echo $row['description']; ?></p>
@@ -257,45 +267,10 @@
 <?php }
     }
 ?>
-    <script>
-        function checkCookie() {
-            var id= document.cookie;
-            if (id!="") {
-                alert("Success ! " +id);
-            } else {
-                alert("Fail !" );
-            }
-        }
-        function chooseTask(x){
-            var idbd = x;
-            var idtask = x-1;
-            const collection = document.getElementsByClassName("btn-idTask");
-            for (var i = 0; i < collection.length ; i++) {
-                if(i == idtask){
-                    collection[i].style.backgroundColor = "black";
-                }
-                else{
-                    collection[i].style.backgroundColor = "white";
-                }
-            }
-            document.cookie = "idtask =" + idbd;
-            checkCookie();
-            
-        }
-        const collect = document.getElementsByClassName("currentTime");
-        var currentTime = 0;
-        const ArrcurrentTime = [];
-        for (var i = 0; i < collect.length ; i++) {
-                collect[i].innerHTML = currentTime;
-                ArrcurrentTime[i] = currentTime;
-            }
-            
-
-    </script>
         <div class="task">
             <button class="btn-add-task" onclick="openAddTask()" id="btn-addTask"><b><i class="fa-solid fa-circle-plus"></i> Add Task</b></button>
         </div>
-        <form action="./action/handleSaveTask.php" class="form-addTask" id="form-addTask" method="get">
+        <form action="./action/handleSaveTask.php" class="form-addTask" id="form-addTask" method="get" enctype="application/x-www-form-urlencoded">
             <div class="px-3">
                 <input type="text" class="title mb-5" id="title" name="title" placeholder="What are you working on?" required></input>
                 <b>Est Pomodoros</b><br>
@@ -303,13 +278,13 @@
                 <span> <input type="text" id="note" name="note" class="note mb-2" placeholder="Some note"> </span> <span> + Add Project <i class="fa-solid fa-lock"></i> </span>
             </div>
             <div class="btn-Form-addTask mt-4">
-                <button class="btn btn-light" onclick="closeAddTask()">Cancel</button>
+                <button class="btn btn-light" onclick="closeAddTask()" type="button">Cancel</button>
                 <button class="btn btn-dark me-3">Save</button>
             </div>
         </form>
         <div class="totalTime">
-            <span class="me-1">Pomos: </span> <b>0/ <?php include('./time.php'); echo caculateEst(); ?></b>
-            <span class="ms-4 me-1">Finish At: </span> <b> <?php caculateTime(); ?> </b>
+            <span class="me-1">Pomos: </span> <b><?php include('./time.php'); if(isset($_SESSION['id'])) echo caculateEst(); else echo "0"; ?> / <?php if(isset($_SESSION['id'])) echo finishTime(); else echo "0"; ?></b>
+            <span class="ms-4 me-1">Finish At: </span> <b> <?php  if(isset($_SESSION['id'])) caculateTime(); else echo "none"; ?> </b>
         </div>
     </div>
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">

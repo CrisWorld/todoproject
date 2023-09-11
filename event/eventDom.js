@@ -69,3 +69,85 @@ listCheckbox.forEach((e) => {
         }
     })
 });
+///
+// function checkCookie() {
+//     var id= document.cookie;
+//     if (id!="") {
+//         alert("Success ! " +id);
+//     } else {
+//         alert("Fail !" );
+//     }
+// }
+function chooseTask(x){
+    var idtask = x;
+    console.log("imple");
+    const collection = document.getElementsByClassName("btn-idTask");
+    for (var i = 0; i < collection.length ; i++) {
+        const id = collection[i].getAttribute("taskID");
+        if(id == idtask && chooseTask.currentTaskID != id){
+            collection[i].style.display = "block";
+            chooseTask.currentTaskID = id;
+            document.cookie = "idtask=" + idtask;
+        } else if (id == idtask && chooseTask.currentTaskID == id){
+            chooseTask.currentTaskID = undefined;
+            collection[i].style.display = "none";
+           document.cookie = "idtask=" + ";path=/todolist;expires=Thu, 01 Jan 1970 00:00:01 GMT"; // Xóa cookie
+        }
+        else{
+            collection[i].style.display = "none";
+        }
+    }
+    // checkCookie();
+}
+chooseTask.currentTaskID = undefined;
+
+const collect = document.getElementsByClassName("btn-vertical");
+for (var i = 0; i < collect.length ; i++) {
+    collect[i].addEventListener("click", (e) => {
+        e.stopPropagation();
+        }
+    );
+}
+const collecti = document.getElementsByClassName("btncheck");
+for (var i = 0; i < collecti.length ; i++) {
+    collecti[i].addEventListener("click", (e) => {
+        e.stopPropagation();
+        }
+    );
+}
+
+
+function finishTask(x){
+    var idt = x;
+    const collection = document.getElementsByClassName("btncheck");
+    for (var i = 0; i < collection.length ; i++) {
+        const id = collection[i].getAttribute("taskID");
+        if(id == idt && finishTask.currentTaskID != id){
+            collection[i].style = "color: red";
+            finishTask.currentTaskID = id;
+        } else if (id == idt && finishTask.currentTaskID == id){
+            finishTask.currentTaskID = undefined;
+            collection[i].style = "color:#33333384";
+        }
+        else{
+            collection[i].style = "color:#33333384";
+        }
+    }
+
+    const collect = document.getElementsByClassName("tt");
+    for (var j = 0; j < collect.length ; j++) {
+        const idtt = collect[j].getAttribute("tasktt");
+        if(idtt == idt && finishTask.currentTas != idtt){
+            collect[j].style = "text-decoration-line: line-through";
+            finishTask.currentTas = idtt;
+        } else if (idtt == idt && finishTask.currentTas == idtt){
+            finishTask.currentTas = undefined;
+            collect[j].style = "text-decoration: none";
+        }
+        else{
+            collect[j].style = "text-decoration: none";
+        }
+    }
+}
+finishTask.currentTaskID = undefined;
+finishTask.currentTas = undefined;

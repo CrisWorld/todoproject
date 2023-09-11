@@ -1,16 +1,30 @@
 <?php
     include('./action/connect.php');
 
-
     function caculateEst(){
         global $conn; 
         $caculateEst = 0;
+        $sql = "SELECT currentTime FROM tasks WHERE userID = ".$_SESSION['id'];
+        $query = mysqli_query($conn, $sql);
+        while($row = mysqli_fetch_assoc($query)){
+            $caculateEst = $caculateEst + $row['currentTime'];
+        }
+        return $caculateEst;
+    }
+    function finishTime(){
+        global $conn; 
+        $caculate = 0;
         $sql = "SELECT finishTime, currentTime FROM tasks WHERE userID = ".$_SESSION['id'];
         $query = mysqli_query($conn, $sql);
         while($row = mysqli_fetch_assoc($query)){
-            $caculateEst = $caculateEst + $row['finishTime'] - $row['currentTime'];
+            if($row['currentTime'] > $row['finishTime']){
+                $caculate = $caculate + $row['currentTime'];
+            }
+            else{
+                $caculate = $caculate + $row['finishTime'];
+            }
         }
-        return $caculateEst;
+        return $caculate;
     }
 
     function caculateTime(){
@@ -28,4 +42,3 @@
     }
 
 ?>
-<script src="./model/timer.js"></script>

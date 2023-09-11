@@ -91,3 +91,6 @@ label{
     bottom: 30px;
     right: 10px;
 }
+#btn-idTask{
+    height: calc(100% + 20px) !important;
+}
