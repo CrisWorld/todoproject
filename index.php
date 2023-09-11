@@ -243,20 +243,20 @@
         $taskID =0;
         while($row = mysqli_fetch_assoc($result)){
         ?>
-        <div class="show-task mt-3 d-flex " style="padding:0; position:relative;" onclick="chooseTask(<?php echo $row['taskID']; ?>)">
+        <div id="show-task" class="show-task mt-3 d-flex " style="padding:0; position:relative;" onclick="chooseTask(<?php echo $row['taskID']; ?>)">
             <button class="btn-idTask" id="btn-idTask" taskID="<?php echo $row['taskID']; ?>"></button>
             <div style="width: 95%; padding: 10px 10px 10px 30px;">
                 <div class="d-flex w-100 justify-content-between">
                     <span>
-                        <button><i class="fa-solid fa-circle-check"></i></button>
-                        <b><?php echo $row['title']; ?></b>
+                        <button id="btn-check"  ><i class="fa-solid fa-circle-check btncheck" onclick="finishTask(<?php echo $row['taskID']; ?>)" taskID="<?php echo $row['taskID']; ?>"></i></button>
+                        <b id="tt" class="tt" tasktt="<?php echo $row['taskID']; ?>"><?php echo $row['title']; ?></b>
                     </span>
                     <div>
                     <span id="currentTime" taskID="<?php echo $row['taskID']; ?>"><?php echo $row['currentTime']; ?></span>
                         <span> 
                                 <?php echo "/ ".$row['finishTime']; ?>
                         </span>
-                        <button><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                        <button class="btn-vertical" id="test" onclick="deleteTask()"><i class="fa-solid fa-ellipsis-vertical"></i></button>
                     </div>
                 </div>
                 <div class="show-note">
@@ -283,7 +283,7 @@
             </div>
         </form>
         <div class="totalTime">
-            <span class="me-1">Pomos: </span> <b>0 / <?php include('./time.php'); if(isset($_SESSION['id'])) echo caculateEst(); else echo "0"; ?></b>
+            <span class="me-1">Pomos: </span> <b><?php include('./time.php'); if(isset($_SESSION['id'])) echo caculateEst(); else echo "0"; ?> / <?php if(isset($_SESSION['id'])) echo finishTime(); else echo "0"; ?></b>
             <span class="ms-4 me-1">Finish At: </span> <b> <?php  if(isset($_SESSION['id'])) caculateTime(); else echo "none"; ?> </b>
         </div>
     </div>

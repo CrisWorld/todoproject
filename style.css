@@ -392,7 +392,11 @@ body{
     
 }
 .show-task button > i{
-    color:#33333384
+    color:#33333384;
+}
+.btn-vertical i{
+    color:#33333384;
+    font-size: 20px;
 }
 .show-task button{
     border: none;

@@ -100,3 +100,54 @@ function chooseTask(x){
     // checkCookie();
 }
 chooseTask.currentTaskID = undefined;
+
+const collect = document.getElementsByClassName("btn-vertical");
+for (var i = 0; i < collect.length ; i++) {
+    collect[i].addEventListener("click", (e) => {
+        e.stopPropagation();
+        }
+    );
+}
+const collecti = document.getElementsByClassName("btncheck");
+for (var i = 0; i < collecti.length ; i++) {
+    collecti[i].addEventListener("click", (e) => {
+        e.stopPropagation();
+        }
+    );
+}
+
+
+function finishTask(x){
+    var idt = x;
+    const collection = document.getElementsByClassName("btncheck");
+    for (var i = 0; i < collection.length ; i++) {
+        const id = collection[i].getAttribute("taskID");
+        if(id == idt && finishTask.currentTaskID != id){
+            collection[i].style = "color: red";
+            finishTask.currentTaskID = id;
+        } else if (id == idt && finishTask.currentTaskID == id){
+            finishTask.currentTaskID = undefined;
+            collection[i].style = "color:#33333384";
+        }
+        else{
+            collection[i].style = "color:#33333384";
+        }
+    }
+
+    const collect = document.getElementsByClassName("tt");
+    for (var j = 0; j < collect.length ; j++) {
+        const idtt = collect[j].getAttribute("tasktt");
+        if(idtt == idt && finishTask.currentTas != idtt){
+            collect[j].style = "text-decoration-line: line-through";
+            finishTask.currentTas = idtt;
+        } else if (idtt == idt && finishTask.currentTas == idtt){
+            finishTask.currentTas = undefined;
+            collect[j].style = "text-decoration: none";
+        }
+        else{
+            collect[j].style = "text-decoration: none";
+        }
+    }
+}
+finishTask.currentTaskID = undefined;
+finishTask.currentTas = undefined;
