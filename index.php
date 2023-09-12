@@ -284,6 +284,35 @@
             <span class="ms-4 me-1">Finish At: </span> <b> <?php  if(isset($_SESSION['id'])) caculateTime(); else echo "none"; ?> </b>
         </div>
     </div>
+    <div class="footer-page w-100">
+        <div class="d-flex justify-content-evenly">
+            <div class="card text-center w-25 h-25 mt-3">
+                <div class="circle-avt">
+                    <img src="https://media.istockphoto.com/id/1346039190/vi/vec-to/c%E1%BA%ADu-b%C3%A9-m%E1%BB%89m-c%C6%B0%E1%BB%9Di-v%C3%A0-v%E1%BA%ABy-tay-ch%C3%A2n-dung-c%E1%BA%ADu-b%C3%A9-trong-h%C3%ACnh-tr%C3%B2n-h%E1%BB%8Dc-sinh-ti%E1%BB%83u-h%E1%BB%8Dc-h%C3%ACnh-minh-h%E1%BB%8Da.jpg?s=612x612&w=0&k=20&c=y2a-9yVyZadOA7WxidelhcwPCgafDShjflT_RfEmhYE=" alt="img">
+                </div>
+                <b>Hoàng Quốc</b>
+                <p>Developer</p>
+                <span class="mb-3 mx-5">Học tập cùng phương pháp pomodoro, làm chủ thời gian của bạn !</span>
+            </div>
+            <div class="card text-center w-25 h-25 mt-3">
+                <div class="circle-avt">
+                    <img src="https://media.istockphoto.com/id/1320459753/vi/vec-to/n%E1%BB%AF-doanh-nh%C3%A2n-avatar-ch%C3%A2n-dung-c%C3%B4-g%C3%A1i-tr%E1%BA%BB-vector-minh-h%E1%BB%8Da-phim-ho%E1%BA%A1t-h%C3%ACnh-ki%E1%BB%83u-ph%E1%BA%B3ng.jpg?s=612x612&w=0&k=20&c=aPAuCVluYLV7ebpo9GQtlVOB8mHAThna4LkkNWrq5G8=" alt="img">
+                </div>
+                <b>Thanh Huyền</b>
+                <p>Developer</p>
+                <span class="mb-3 mx-5">Học tập cùng phương pháp pomodoro, làm chủ thời gian của bạn !</span>
+            </div>
+        </div>
+        <div class="mt-4 pb-5 d-flex justify-content-between" style="height: 30px; border: 1px solid black; background-color:rgb(169, 169, 169)">
+            <h5 class="ms-5 mt-2" style="color: white;"><img src="image/tomato.png" alt="" style="width: 30px; aspect-ratio: 1 / 1; color: white;"> Tomató</h5>
+            <div class="icon-footer d-flex mt-2 me-5" style="color: white; font-size: 28px;">
+                <i class="fa-brands fa-facebook mx-2"></i>
+                <i class="fa-brands fa-instagram mx-2"></i>
+                <i class="fa-solid fa-message mx-2"></i>
+                <i class="fa-brands fa-twitter mx-2"></i>
+            </div>
+        </div>
+    </div>
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>

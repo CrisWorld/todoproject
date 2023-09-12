@@ -445,3 +445,22 @@ body{
     border-radius: 5px 0 0 5px;
     display: none;
 }
+
+.footer-page{
+    background-color: white;
+}
+.card{
+    border-radius: 10px;
+    box-shadow: 5px 5px #3333;
+}
+.card b{
+    font-size: 20px;
+}
+.circle-avt{
+    border-radius: 50%; 
+    width: 30px;
+}
+.circle-avt img{
+    width: 280px; 
+    margin-left: 50px;
+}
