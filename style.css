@@ -329,7 +329,7 @@ body{
     transform: translate(-50%,-30%);
 }
 /* form add task */
-.form-addTask{
+.form-addTask, .form-updateTask{
     background-color: white;
     width: 480px;
     height: fit-content;
@@ -338,6 +338,9 @@ body{
     margin-bottom: 30px;
     border-radius: 10px;
     display: none;
+}
+.form-updateTask{
+    display: block;
 }
 .closeBtn{
     position: absolute;

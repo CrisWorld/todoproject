@@ -170,8 +170,10 @@ timer.checkLongBreakInterval = function (){
             }
         }
         let currentTime = document.querySelector(`span[taskID='${idtask}']`);
-        currentTime.innerHTML++;
-        saveEst(currentTime.innerHTML, idtask);
+        if (currentTime){
+            currentTime.innerHTML++;
+            saveEst(currentTime.innerHTML, idtask);
+        }
     }
 }
 timer.skipTime = () => {
@@ -183,10 +185,26 @@ function saveEst(currentTime, taskID){
     var httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            //...
+            renderTotalTime();
         }
     };
     httpRequest.open("GET", `handleEst.php?currentTime=${currentTime}&taskID=${taskID}`, true);
     httpRequest.send();
+}
+function renderTotalTime(){
+    const currentTime = document.getElementById("totalCurrentTime");
+    const finishTime = document.getElementById("totalFinishTime");
+    const currentTimes = Array.from(document.getElementsByClassName("currentTime"));
+    const finishTimes = Array.from(document.getElementsByClassName("finishTime"));
+    let totalCurrentTime = 0;
+    let totalFinishTime = 0;
+    currentTimes.forEach(function (element,key){
+        totalCurrentTime += parseInt(element.innerHTML);
+        if (parseInt(element.innerHTML) > parseInt(finishTimes[key].innerHTML)){
+            totalFinishTime += parseInt(element.innerHTML);
+        } else totalFinishTime += parseInt(finishTimes[key].innerHTML);
+    });
+    currentTime.innerHTML = totalCurrentTime;
+    finishTime.innerHTML = totalFinishTime;
 }
 export default timer;

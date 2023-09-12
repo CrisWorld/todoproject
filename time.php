@@ -4,12 +4,24 @@
     function caculateEst(){
         global $conn; 
         $caculateEst = 0;
+        $sql = "SELECT finishTime, currentTime FROM tasks WHERE userID = ".$_SESSION['id'];
+        $query = mysqli_query($conn, $sql);
+        while($row = mysqli_fetch_assoc($query)){
+            if($row['currentTime'] < $row['finishTime']){
+                $caculateEst = $caculateEst + $row['finishTime'] - $row['currentTime'];
+            }
+        }
+        return $caculateEst;
+    }
+    function currentTime(){
+        global $conn; 
+        $caculate = 0;
         $sql = "SELECT currentTime FROM tasks WHERE userID = ".$_SESSION['id'];
         $query = mysqli_query($conn, $sql);
         while($row = mysqli_fetch_assoc($query)){
-            $caculateEst = $caculateEst + $row['currentTime'];
+            $caculate = $caculate + $row['currentTime'];
         }
-        return $caculateEst;
+        return $caculate;
     }
     function finishTime(){
         global $conn; 
@@ -35,8 +47,18 @@
         $sql = "SELECT pomodoro, shortbreak, longbreak, longBreakInterval FROM setting WHERE id = ".$_SESSION['id'];
         $qr = mysqli_query($conn, $sql);
         while($kq = mysqli_fetch_assoc($qr)){
-            $floored = floor(caculateEst()/$kq['longBreakInterval']);
-            $new = $time_stamp + caculateEst()*$kq['pomodoro']*60 + (caculateEst()-$floored - 1)*$kq['shortbreak']*60 + $floored*$kq['longbreak']*60;
+            $totalEst = caculateEst();
+            $floored = floor($totalEst/$kq['longBreakInterval']);
+            $totalShortBreak = $totalEst - $floored;
+            if ($floored > 0 && $totalShortBreak > 0)
+                $new = $time_stamp + $totalEst*$kq['pomodoro']*60 + ($totalShortBreak)*$kq['shortbreak']*60 + ($floored - 1)*$kq['longbreak']*60;
+            else if ($floored == 0 && $totalShortBreak > 0)
+                $new = $time_stamp + $totalEst*$kq['pomodoro']*60 + ($totalShortBreak - 1)*$kq['shortbreak']*60;
+            else if ($floored == $totalEst && $totalEst != 0)
+                $new = $time_stamp + $totalEst*$kq['pomodoro']*60 + ($floored - 1)*$kq['longbreak']*60;
+            else
+                $new = $time_stamp;
+
         }
         echo date('h:i', $new);
     }
