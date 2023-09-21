@@ -288,7 +288,7 @@
         <div class="d-flex justify-content-evenly">
             <div class="card text-center w-25 h-25 mt-3">
                 <div class="circle-avt">
-                    <img src="https://media.istockphoto.com/id/1346039190/vi/vec-to/c%E1%BA%ADu-b%C3%A9-m%E1%BB%89m-c%C6%B0%E1%BB%9Di-v%C3%A0-v%E1%BA%ABy-tay-ch%C3%A2n-dung-c%E1%BA%ADu-b%C3%A9-trong-h%C3%ACnh-tr%C3%B2n-h%E1%BB%8Dc-sinh-ti%E1%BB%83u-h%E1%BB%8Dc-h%C3%ACnh-minh-h%E1%BB%8Da.jpg?s=612x612&w=0&k=20&c=y2a-9yVyZadOA7WxidelhcwPCgafDShjflT_RfEmhYE=" alt="img">
+                    <img class="my-3" style="border-radius: 50%; height: 250px; width: 250px; margin-left: 60px;" src="image/avtquoc.jpg" alt="img">
                 </div>
                 <b>Hoàng Quốc</b>
                 <p>Developer</p>
@@ -296,7 +296,7 @@
             </div>
             <div class="card text-center w-25 h-25 mt-3">
                 <div class="circle-avt">
-                    <img src="https://media.istockphoto.com/id/1320459753/vi/vec-to/n%E1%BB%AF-doanh-nh%C3%A2n-avatar-ch%C3%A2n-dung-c%C3%B4-g%C3%A1i-tr%E1%BA%BB-vector-minh-h%E1%BB%8Da-phim-ho%E1%BA%A1t-h%C3%ACnh-ki%E1%BB%83u-ph%E1%BA%B3ng.jpg?s=612x612&w=0&k=20&c=aPAuCVluYLV7ebpo9GQtlVOB8mHAThna4LkkNWrq5G8=" alt="img">
+                    <img class="my-3" style="border-radius: 50%; height: 250px; width: 250px; margin-left: 60px;" src="image/avthuyen.jpg" alt="img">
                 </div>
                 <b>Thanh Huyền</b>
                 <p>Developer</p>
